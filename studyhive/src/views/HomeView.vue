@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import { supabase } from './supabase';
+import { supabase } from '@/supabase.js';
 
 const messages = ref([]);
 
