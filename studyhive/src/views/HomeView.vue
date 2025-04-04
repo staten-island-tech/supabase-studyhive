@@ -5,17 +5,16 @@ import { supabase } from '@/supabase.js';
 const messages = ref([]);
 
 async function getMessages() {
-  const { data, error } = await supabase
-    .from('messages')
-    .select('*')
-    .order('created_at', { ascending: false });
+  let { data: users, error } = await supabase
+  .from('users')
+  .select('*')
 
   if (error) {
     console.error('Error fetching messages:', error);
     return;
   }
 
-  messages.value = data;
+  console.log(users);
 }
 
 onMounted(() => {
