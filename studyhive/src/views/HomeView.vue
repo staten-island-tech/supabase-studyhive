@@ -1,11 +1,9 @@
 <template>
-  <div>
-    <DataCollection />
-  </div>
+
 </template>
 
-<script setup>
-import DataCollection from '@/components/DataCollection.vue';
+<script setup lang="ts">
+
 </script>
 
 <style scoped>
