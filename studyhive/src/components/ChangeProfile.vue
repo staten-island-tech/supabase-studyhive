@@ -1,6 +1,6 @@
 <template>
   <div>
-    <DataCollection />
+
   </div>
 </template>
 
