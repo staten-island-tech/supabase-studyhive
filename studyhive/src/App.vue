@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import { ref, onMounted, onUnmounted } from 'vue'
-
+import SignIn from './components/SignIn.vue';
 const showNav = ref(true);
 let lastScrollY = window.scrollY
 const showShadow = ref(false);
-
+const mobileMenuOpen = ref(false);
+const showSignIn = ref(false);
 const handleScroll = () => {
   const currentScrollY = window.scrollY
   // Show navbar if scrolling up OR if you're near the top
@@ -22,6 +23,10 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
 })
+
+function opents(){
+  showSignIn.value = true;
+}
 </script>
 
 <template>
@@ -41,13 +46,13 @@ onUnmounted(() => {
             <RouterLink to="/home" class="text-xl font-semibold">Home</RouterLink>
             <RouterLink to="" class="text-xl font-semibold">Study Sets</RouterLink>
             <RouterLink to="" class="text-xl font-semibold">Create</RouterLink>
-            <li @click="" class="font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-pink-400 px-4 py-2 rounded cursor-pointer">SIGN IN</li>
+            <li @click="opents" class="font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-pink-400 px-4 py-2 rounded cursor-pointer">SIGN IN</li>
           </ul>
         </div>
       </nav>
     </div>
   </header>
-
+  <SignIn v-if="showSignIn" @close="showSignIn = false" />
   <RouterView />
 
   <footer class="footer footer-horizontal footer-center bg-white shadow-2xl mt-10 text-base-content rounded p-10">
