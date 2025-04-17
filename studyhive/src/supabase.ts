@@ -5,4 +5,9 @@ const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYm
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
+const { data, error } = await supabase.auth.signUp({
+    email: 'elisa@example.com',
+    password: 'supasecret123',
+});
+
 
