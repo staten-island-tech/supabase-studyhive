@@ -1,16 +1,17 @@
 import { initializeApp } from 'firebase/app'
-import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
+import { getAuth } from 'firebase/auth'
 
 const firebaseConfig = {
-  apiKey: 'YOUR_API_KEY',
-  authDomain: 'YOUR_AUTH_DOMAIN',
-  projectId: 'YOUR_PROJECT_ID',
+  apiKey: 'AIzaSyD3aJ1-YOUR-REAL-API-KEY-HERE', // ✅ This MUST be a real API key
+  authDomain: 'your-project-id.firebaseapp.com',
+  projectId: 'your-project-id',
+  storageBucket: 'your-project-id.appspot.com',
+  messagingSenderId: 'YOUR_SENDER_ID',
   appId: 'YOUR_APP_ID',
-  // other config from Firebase
 }
 
 const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
-const provider = new GoogleAuthProvider()
 
-export { auth, provider, signInWithPopup }
+
+export { auth }
