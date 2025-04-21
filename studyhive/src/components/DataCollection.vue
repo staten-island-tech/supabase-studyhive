@@ -1,32 +1,34 @@
-<script setup>
-import { onMounted, reactive } from 'vue';
-import { supabase } from '@/supabase.js';
+<template>
 
-let data = reactive([]);
+</template>
 
-async function getData() {
-  let { data: users, error } = await supabase
-  .from('users')
-  .select('*')
+<script setup lang="ts">
+import {supabase} from '../supabase.ts';
+
+async function testSignup() {
+  const { data, error } = await supabase.auth.signUp({
+  email: 'elisachen334@gmail.com',
+  password: 'example-password',
+  options: {
+    data: {
+      username: 'serr',
+      full_name: 'Elisa Chen',
+    },
+  },
+  });
 
   if (error) {
-    console.error('Error fetching data:', error);
-    return;
+    console.error('❌ Sign up failed:', error.message);
+  } else {
+    console.log('✅ Sign up succeeded! User ID:', data.user?.id);
   }
-
-  console.log(users);
-  data = users;
+  console.log(data);
 }
 
-onMounted(() => {
-  getData();
-});
+testSignup();
+
 </script>
 
-<template>
-  <ul>
-    <li v-for="user in data" :key="user.user_id">
-      {{ user }}
-    </li>
-  </ul>
-</template>
+<style scoped>
+
+</style>
