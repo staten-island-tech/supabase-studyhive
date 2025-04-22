@@ -43,9 +43,9 @@ function opents(){
           <RouterLink to="/" class=" items-center left-10 text-2xl font-bold flex gap-x-5 bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-pink-400">
             <img src="/img/image.png" alt="" class="w-10"> StudyHive</RouterLink>
           <ul class="flex gap-[3rem] items-center">
-            <RouterLink to="/home" class="text-xl font-semibold">Home</RouterLink>
-            <RouterLink to="" class="text-xl font-semibold">Study Sets</RouterLink>
-            <RouterLink to="" class="text-xl font-semibold">Create</RouterLink>
+            <RouterLink to="/Home" class="text-xl font-semibold">Home</RouterLink>
+            <RouterLink to="/StudySets" class="text-xl font-semibold">Study Sets</RouterLink>
+            <RouterLink to="/Create" class="text-xl font-semibold">Create</RouterLink>
             <li @click="opents" class="font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-pink-400 px-4 py-2 rounded cursor-pointer">SIGN IN</li>
           </ul>
         </div>
