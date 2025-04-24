@@ -7,7 +7,7 @@
         <li class="font-bold text-4xl cursor-pointer p-7">Sign In</li>
         <div @click="close" class="absolute right-5 text-6xl cursor-pointer p-7">X</div>
       </ul>
-      <div class="singup w-full h-full bg-white flex flex-col justify-center items-center gap-y-5">
+      <div class="signup w-full h-full bg-white flex flex-col justify-center items-center gap-y-5">
         <button
           @click="signInWithGoogle"
           class="bg-white w-[70%] border rounded-lg px-6 py-3 text-black font-bold shadow flex justify-center items-center gap-4"
@@ -17,17 +17,17 @@
             alt="Google"
             class="w-6 h-6"
           />
-          Sign in with Google
+          Sign Up with Google
         </button>
         <div class="">-------------------- or email ---------------------</div>
-        <h1 class="w-[70%]">Bday</h1>
+        <h1 class="w-[70%]">Birthday</h1>
         <div class="flex flex-row w-[70%] gap-x-7">
           <button
             class="btn rounded-3xl w-48"
             popovertarget="popover-1"
             style="anchor-name: --anchor-1"
           >
-            Month
+            {{ selectedmonth }}
           </button>
           <ul
             class="dropdown menu w-52 rounded-box bg-base-100 shadow-sm"
@@ -36,7 +36,7 @@
             style="position-anchor: --anchor-1"
           >
             <li v-for="month in months">
-              <a>{{ month }}</a>
+              <a @click="changeselected(selectedmonth)">{{ month }}</a>
             </li>
           </ul>
           <button
@@ -232,6 +232,12 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from 'firebase/auth'
+import { ref } from 'vue'
+const selectedmonth = ref('Month')
+function changeselected(selected: string) {
+  return (selected = document.documentElement.innerText)
+}
+
 //dont use firebase use supabase instead***
 const emit = defineEmits(['close'])
 function selection() {
