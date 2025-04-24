@@ -35,7 +35,7 @@
             id="popover-1"
             style="position-anchor: --anchor-1"
           >
-            <li v-for="month in months">
+            <li v-for="month in months" :key="month">
               <a @click="changeselected(selectedmonth)">{{ month }}</a>
             </li>
           </ul>
