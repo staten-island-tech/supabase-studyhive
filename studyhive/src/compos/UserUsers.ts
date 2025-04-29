@@ -1,4 +1,4 @@
-import type { test } from '@/lib/UserInfo'
+import type { test } from '@/compos/UserInfo'
 import { ref } from 'vue'
 export function userInfo() {
   const Info = ref<test[]>([
