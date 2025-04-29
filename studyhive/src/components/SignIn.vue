@@ -135,7 +135,7 @@
         class="signin w-full h-full bg-white flex-col justify-center items-center gap-y-5 hidden"
       >
         <button
-          @click="signInWithFacebook"
+          @click=""
           class="bg-white w-[70%] border rounded-lg px-6 py-3 text-black font-bold shadow flex justify-center items-center gap-4"
         >
           <img
@@ -146,7 +146,7 @@
           Sign in with Facebook
         </button>
         <button
-          @click="signInWithApple"
+          @click=""
           class="bg-white w-[70%] border rounded-lg px-6 py-3 text-black font-bold shadow flex justify-center items-center gap-4"
         >
           <img
@@ -157,7 +157,7 @@
           Sign in with Apple
         </button>
         <button
-          @click="signInWithGoogle"
+          @click=""
           class="bg-white w-[70%] border rounded-lg px-6 py-3 text-black font-bold shadow flex justify-center items-center gap-4"
         >
           <img
@@ -225,14 +225,6 @@
 </template>
 
 <script setup lang="ts">
-import { auth } from '@/lib/firebase'
-import {
-  FacebookAuthProvider,
-  OAuthProvider,
-  GoogleAuthProvider,
-  signInWithPopup,
-} from 'firebase/auth'
-//dont use firebase use supabase instead***
 const emit = defineEmits(['close'])
 function selection() {
   //const selected = ref('sign in')
@@ -241,38 +233,6 @@ function selection() {
 }
 function close() {
   emit('close')
-}
-
-const googleProvider = new GoogleAuthProvider()
-async function signInWithGoogle() {
-  try {
-    const result = await signInWithPopup(auth, googleProvider)
-    const user = result.user
-    console.log('Google user signed in:', user.displayName)
-  } catch (error) {
-    console.error('Google sign-in failed:', error)
-  }
-}
-const appleProvider = new OAuthProvider('apple.com')
-async function signInWithApple() {
-  try {
-    const result = await signInWithPopup(auth, appleProvider)
-    const user = result.user
-    console.log('Apple user signed in:', user.displayName)
-  } catch (error) {
-    console.error('Apple sign-in failed:', error)
-  }
-}
-
-const facebookProvider = new FacebookAuthProvider()
-async function signInWithFacebook() {
-  try {
-    const result = await signInWithPopup(auth, facebookProvider)
-    const user = result.user
-    console.log('Facebook user signed in:', user.displayName)
-  } catch (error) {
-    console.error('Facebook sign-in failed:', error)
-  }
 }
 
 //for sign up lel
