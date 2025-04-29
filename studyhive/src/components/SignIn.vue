@@ -9,7 +9,7 @@
       </ul>
       <div class="singup w-full h-full bg-white flex flex-col justify-center items-center gap-y-5">
         <button
-          @click="signInWithGoogle"
+          @click=""
           class="bg-white w-[70%] border rounded-lg px-6 py-3 text-black font-bold shadow flex justify-center items-center gap-4"
         >
           <img
@@ -88,13 +88,80 @@
             </g>
           </svg>
           <input
+            type="email"
+            required
+            placeholder="Email"
+            v-model="email"
+            pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
+            title="Must be in the format characters@characters.domain, including numbers, latters, @, and ."
+          />
+        </label>
+        <label class="input validator w-[70%] h-1/15">
+          <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <g
+              stroke-linejoin="round"
+              stroke-linecap="round"
+              stroke-width="2.5"
+              fill="none"
+              stroke="currentColor"
+            >
+              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </g>
+          </svg>
+          <input
             type="input"
             required
             placeholder="Username"
+            v-model="username"
             pattern="[A-Za-z][A-Za-z0-9\-]*"
             minlength="3"
             maxlength="30"
             title="Only letters, numbers or dash"
+          />
+        </label>
+        <label class="input validator w-[70%] h-1/15">
+          <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <g
+              stroke-linejoin="round"
+              stroke-linecap="round"
+              stroke-width="2.5"
+              fill="none"
+              stroke="currentColor"
+            >
+              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </g>
+          </svg>
+          <input
+            type="input"
+            required
+            placeholder="First Name"
+            v-model="fullName[0]"
+            pattern="[A-Za-z]*"
+            title="Only letters"
+          />
+        </label>
+        <label class="input validator w-[70%] h-1/15">
+          <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <g
+              stroke-linejoin="round"
+              stroke-linecap="round"
+              stroke-width="2.5"
+              fill="none"
+              stroke="currentColor"
+            >
+              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </g>
+          </svg>
+          <input
+            type="input"
+            required
+            placeholder="Last Name"
+            v-model="fullName[1]"
+            pattern="[A-Za-z]*"
+            title="Only letters"
           />
         </label>
         <label class="input validator w-[70%] h-1/15">
@@ -122,7 +189,8 @@
           />
         </label>
         <p>By signing up, you accept StudyHive's Terms of Service and Privacy Policy</p>
-        <button
+        <button 
+          @click="signup"
           class="cursor-pointer w-[15rem] h-[4rem] rounded-2xl bg-gradient-to-r from-amber-500 to-pink-400"
         >
           Sign Up
@@ -225,6 +293,7 @@
 </template>
 
 <script setup lang="ts">
+import { reactive, ref } from 'vue';
 const emit = defineEmits(['close'])
 function selection() {
   //const selected = ref('sign in')
@@ -233,6 +302,15 @@ function selection() {
 }
 function close() {
   emit('close')
+}
+
+const email = ref('');
+let fullName = reactive(['', '']);
+const password = ref('');
+const username = ref('');
+
+function signup() {
+  console.log(email, fullName, password, username);
 }
 
 //for sign up lel
@@ -261,6 +339,8 @@ const days = ['Day']
 for (let i = 1; i <= 31; i++) {
   days.push(i.toString())
 }
+
+
 </script>
 
 <style scoped></style>
