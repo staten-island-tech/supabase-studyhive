@@ -183,6 +183,7 @@
             type="password"
             required
             placeholder="Password"
+            v-model="password"
             minlength="8"
             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
             title="Must be more than 8 characters, including number, lowercase letter, uppercase letter"
@@ -309,8 +310,9 @@ let fullName = reactive(['', '']);
 const password = ref('');
 const username = ref('');
 
+//testing
 function signup() {
-  console.log(email, fullName, password, username);
+  console.log(email.value, fullName, password.value, username.value);
 }
 
 //for sign up lel
