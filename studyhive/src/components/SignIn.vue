@@ -294,7 +294,8 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
+import { reactive, ref, onMounted } from 'vue';
+import { supabase } from '@/supabase.ts';
 const emit = defineEmits(['close'])
 function selection() {
   //const selected = ref('sign in')
@@ -305,14 +306,38 @@ function close() {
   emit('close')
 }
 
+onMounted(() => {
+  getData();
+});
+
+async function getData() {
+  const { data, error } = await supabase
+  .from('profiles')
+  .select('*');
+  console.log(data);
+  return data;
+}
+
 const email = ref('');
 let fullName = reactive(['', '']);
 const password = ref('');
 const username = ref('');
 
 //testing
-function signup() {
+async function signup() {
   console.log(email.value, fullName, password.value, username.value);
+  /* const { data, error } = await supabase.auth.signUp(
+    {
+      email: email.value,
+      password: password.value,
+      options: {
+        data: {
+          username: username.value,
+          full_name: fullName[0] + fullName[1]
+        }
+      }
+    }); */
+  /* console.log(data); */
 }
 
 //for sign up lel
