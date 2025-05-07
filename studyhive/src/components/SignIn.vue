@@ -307,14 +307,13 @@ function close() {
   emit('close')
 }
 
-const email = ref('');
+let email = ref('');
 let fullName = reactive(['', '']);
-const password = ref('');
-const username = ref('');
+let password = ref('');
+let username = ref('');
 
 //testing
 async function signup() {
-  console.log(email.value, fullName, password.value, username.value);
   const { data, error } = await supabase.auth.signUp(
     {
       email: email.value,
@@ -322,11 +321,17 @@ async function signup() {
       options: {
         data: {
           username: username.value,
-          full_name: fullName[0] + fullName[1]
+          full_name: fullName[0] + ' ' + fullName[1]
         }
       }
     });
-  console.log(data);
+    email = ref('');
+    fullName = reactive(['', '']);
+    password = ref('');
+    username = ref('');
+    console.log(email.value, fullName, password.value, username.value);
+    close();
+    
 }
 
 //for sign up lel
