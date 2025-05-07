@@ -7,7 +7,7 @@
         <li class="font-bold text-4xl cursor-pointer p-7">Sign In</li>
         <div @click="close" class="absolute right-5 text-6xl cursor-pointer p-7">X</div>
       </ul>
-      <div class="signup w-full h-full bg-white flex flex-col justify-center items-ce nter gap-y-5">
+      <div class="signup w-full h-full bg-white flex flex-col justify-center items-center gap-y-5">
         <button
           @click="signInWithGoogle"
           class="bg-white w-[70%] border rounded-lg px-6 py-3 text-black font-bold shadow flex justify-center items-center gap-4"
