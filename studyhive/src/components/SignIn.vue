@@ -296,7 +296,7 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
 import { supabase } from '@/supabase.ts';
-import { SupabaseClient } from '@supabase/supabase-js';
+import { useUserStore } from '@/stores/users.ts';
 const emit = defineEmits(['close'])
 function selection() {
   //const selected = ref('sign in')
@@ -306,6 +306,8 @@ function selection() {
 function close() {
   emit('close')
 }
+
+const userStore = useUserStore();
 
 let email = ref('');
 let fullName = reactive(['', '']);
@@ -325,13 +327,19 @@ async function signup() {
         }
       }
     });
+    const user = {
+      email: email.value,
+      username: username.value,
+      fullName: fullName[0] + ' ' + fullName[1],
+      pfp: 'https://i.pinimg.com/736x/53/57/61/53576100ffec1b41db0c013c46708cad.jpg'
+    }
+    userStore.signIn(user);
+    close();
     email = ref('');
     fullName = reactive(['', '']);
     password = ref('');
     username = ref('');
     console.log(email.value, fullName, password.value, username.value);
-    close();
-    
 }
 
 //for sign up lel
