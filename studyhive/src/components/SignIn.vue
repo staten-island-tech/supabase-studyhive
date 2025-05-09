@@ -226,6 +226,7 @@
 
 <script setup lang="ts">
 import { auth } from '@/lib/firebase'
+import { gsap } from 'gsap'
 import {
   FacebookAuthProvider,
   OAuthProvider,
