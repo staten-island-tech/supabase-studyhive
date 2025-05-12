@@ -7,7 +7,7 @@
         <li class="font-bold text-4xl cursor-pointer p-7">Sign In</li>
         <div @click="close" class="absolute right-5 text-6xl cursor-pointer p-7">X</div>
       </ul>
-      <div class="signup w-full h-full bg-white flex flex-col justify-center items-center gap-y-5">
+      <div class="signup w-full h-full bg-white hidden flex-col justify-center items-center gap-y-5">
         <button
           @click=""
           class="bg-white w-[70%] border rounded-lg px-6 py-3 text-black font-bold shadow flex justify-center items-center gap-4"
@@ -201,7 +201,7 @@
         </button>
       </div>
       <div
-        class="signin w-full h-full bg-white flex-col justify-center items-center gap-y-5 hidden"
+        class="signin w-full h-full bg-white flex-col justify-center items-center gap-y-5 flex"
       >
         <button
           @click=""
@@ -252,11 +252,10 @@
           <input
             type="input"
             required
-            placeholder="Username"
-            pattern="[A-Za-z][A-Za-z0-9\-]*"
-            minlength="3"
-            maxlength="30"
-            title="Only letters, numbers or dash"
+            placeholder="Email"
+            v-model="email"
+            pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
+            title="Must be in the format characters@characters.domain, including numbers, latters, @, and ."
           />
         </label>
         <label class="input validator w-[70%] h-1/15">
@@ -278,12 +277,14 @@
             type="password"
             required
             placeholder="Password"
+            v-model="password"
             minlength="8"
             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
             title="Must be more than 8 characters, including number, lowercase letter, uppercase letter"
           />
         </label>
         <button
+        @click="signIn"
           class="cursor-pointer w-[15rem] h-[4rem] rounded-2xl bg-gradient-to-r from-amber-500 to-pink-400"
         >
           Sign In
@@ -297,21 +298,21 @@
 import { reactive, ref } from 'vue';
 import { supabase } from '@/supabase.ts';
 import { useUserStore } from '@/stores/users.ts';
-import { gsap } from 'gsap'
-const selectedmonth = ref('Month')
+import { gsap } from 'gsap';
+const selectedmonth = ref('Month');
 function changeselected(selected: string) {
   return (selected = document.documentElement.innerText)
 }
 
 //dont use firebase use supabase instead***
-const emit = defineEmits(['close'])
+const emit = defineEmits(['close']);
 function selection() {
   //const selected = ref('sign in')
   //if clicked sign up, then hide other and switch to sign up area, vice versa (also make it so that if selected it will be underlined)
-  console.log('uea')
+  console.log('uea');
 }
 function close() {
-  emit('close')
+  emit('close');
 }
 
 const userStore = useUserStore();
@@ -322,7 +323,38 @@ let password = ref('');
 let username = ref('');
 
 //testing
+async function signIn() {
+  if ((email.value === '') || (password.value === '')) {
+    return "You didn't fill in all the inputs";
+  }
+  const { data, error } = await supabase.auth.signInWithPassword(
+    {
+      email: email.value,
+      password: password.value
+    }
+  )
+  console.log(data, error);
+  if (error) {
+      return "ERROR";
+  }
+  const user = {
+    email: email.value,
+    username: username.value,
+    fullName: fullName[0] + ' ' + fullName[1],
+    pfp: 'https://i.pinimg.com/736x/53/57/61/53576100ffec1b41db0c013c46708cad.jpg'
+  }
+  userStore.signIn(user);
+  close();
+  email = ref('');
+  password = ref('');
+  console.log(email.value, fullName, password.value, username.value);
+}
+
+//testing
 async function signup() {
+  if ((email.value === '') || (fullName === reactive(['', ''])) || (password.value === '') || (username.value === '')) {
+    return "You didn't fill in all the inputs";
+  }
   const { data, error } = await supabase.auth.signUp(
     {
       email: email.value,
@@ -334,6 +366,9 @@ async function signup() {
         }
       }
     });
+    if (error) {
+      return "ERROR";
+    }
     const user = {
       email: email.value,
       username: username.value,
@@ -375,8 +410,6 @@ const days = ['Day']
 for (let i = 1; i <= 31; i++) {
   days.push(i.toString())
 }
-
-
 </script>
 
 <style scoped></style>
