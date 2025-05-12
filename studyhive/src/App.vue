@@ -61,6 +61,10 @@ function opents() {
       </nav>
     </div>
   </header>
+  <div class="fixed z-100 bottom-4 right-10">
+    <button class="w-24 h-24 bg-amber-500 rounded-[30rem]">🡡</button>
+    <h3>scroll up</h3>
+  </div>
   <SignIn v-if="showSignIn" @close="showSignIn = false" />
   <RouterView />
 
