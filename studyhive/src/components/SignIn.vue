@@ -325,7 +325,7 @@ let username = ref('');
 //testing
 async function signIn() {
   if ((email.value === '') || (password.value === '')) {
-    return "You didn't fill in all the inputs";
+    return "You didn't fill in all the inputs";       //add more to it
   }
   const { data, error } = await supabase.auth.signInWithPassword(
     {
@@ -335,7 +335,7 @@ async function signIn() {
   )
   console.log(data, error);
   if (error) {
-      return "ERROR";
+      return "ERROR";       //add more to it
   }
   const user = {
     email: email.value,
@@ -353,7 +353,7 @@ async function signIn() {
 //testing
 async function signup() {
   if ((email.value === '') || (fullName === reactive(['', ''])) || (password.value === '') || (username.value === '')) {
-    return "You didn't fill in all the inputs";
+    return "You didn't fill in all the inputs";     //add more to it
   }
   const { data, error } = await supabase.auth.signUp(
     {
@@ -367,7 +367,7 @@ async function signup() {
       }
     });
     if (error) {
-      return "ERROR";
+      return "ERROR";   //add more to it
     }
     const user = {
       email: email.value,
