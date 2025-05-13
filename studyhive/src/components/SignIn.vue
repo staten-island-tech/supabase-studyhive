@@ -3,13 +3,13 @@
     <div class="w-1/2 h-full bg-amber-300"></div>
     <div class="w-1/2 h-full bg-white flex flex-col justify-center items-center gap-y-5">
       <ul class="flex flex-row absolute gap-15 top-0 w-1/2">
-        <li class="font-bold text-4xl cursor-pointer p-7">Sign Up</li>
-        <li class="font-bold text-4xl cursor-pointer p-7">Sign In</li>
+        <li @click="switching" class="font-bold text-4xl cursor-pointer p-7">Sign Up</li>
+        <li @click="switching" class="font-bold text-4xl cursor-pointer p-7">Sign In</li>
         <div @click="close" class="absolute right-5 text-6xl cursor-pointer p-7">X</div>
       </ul>
       <div class="signup w-full h-full bg-white flex flex-col justify-center items-center gap-y-5">
         <button
-          @click="signInWithGoogle"
+          @click=""
           class="bg-white w-[70%] border rounded-lg px-6 py-3 text-black font-bold shadow flex justify-center items-center gap-4"
         >
           <img
@@ -135,7 +135,7 @@
         class="signin w-full h-full bg-white flex-col justify-center items-center gap-y-5 hidden"
       >
         <button
-          @click="signInWithFacebook"
+          @click=""
           class="bg-white w-[70%] border rounded-lg px-6 py-3 text-black font-bold shadow flex justify-center items-center gap-4"
         >
           <img
@@ -146,7 +146,7 @@
           Sign in with Facebook
         </button>
         <button
-          @click="signInWithApple"
+          @click=""
           class="bg-white w-[70%] border rounded-lg px-6 py-3 text-black font-bold shadow flex justify-center items-center gap-4"
         >
           <img
@@ -157,7 +157,7 @@
           Sign in with Apple
         </button>
         <button
-          @click="signInWithGoogle"
+          @click=""
           class="bg-white w-[70%] border rounded-lg px-6 py-3 text-black font-bold shadow flex justify-center items-center gap-4"
         >
           <img
@@ -227,17 +227,42 @@
 <script setup lang="ts">
 import { auth } from '@/lib/firebase'
 import { gsap } from 'gsap'
-import {
-  FacebookAuthProvider,
-  OAuthProvider,
-  GoogleAuthProvider,
-  signInWithPopup,
-} from 'firebase/auth'
+
 import { ref } from 'vue'
 const selectedmonth = ref('Month')
 function changeselected(selected: string) {
   return (selected = document.documentElement.innerText)
 }
+
+function switching(event: MouseEvent) {
+  const item = event.target as HTMLElement; // Casting event.target to HTMLElement
+  const signupElement = document.querySelector('.signup') as HTMLElement | null;
+  const signinElement = document.querySelector('.signin') as HTMLElement | null;
+
+  if (item.innerText === 'Sign Up') {
+    if (signupElement) {
+      signupElement.classList.remove('hidden');
+      signupElement.classList.add('flex');
+    }
+
+    if (signinElement) {
+      signinElement.classList.add('hidden');
+      signinElement.classList.remove('flex');
+    }
+  } else if (item.innerText === 'Sign In') {
+    if (signinElement) {
+      signinElement.classList.remove('hidden');
+      signinElement.classList.add('flex');
+    }
+
+    if (signupElement) {
+      signupElement.classList.add('hidden');
+      signupElement.classList.remove('flex');
+    }
+  }
+}
+
+
 
 //dont use firebase use supabase instead***
 const emit = defineEmits(['close'])
@@ -250,37 +275,6 @@ function close() {
   emit('close')
 }
 
-const googleProvider = new GoogleAuthProvider()
-async function signInWithGoogle() {
-  try {
-    const result = await signInWithPopup(auth, googleProvider)
-    const user = result.user
-    console.log('Google user signed in:', user.displayName)
-  } catch (error) {
-    console.error('Google sign-in failed:', error)
-  }
-}
-const appleProvider = new OAuthProvider('apple.com')
-async function signInWithApple() {
-  try {
-    const result = await signInWithPopup(auth, appleProvider)
-    const user = result.user
-    console.log('Apple user signed in:', user.displayName)
-  } catch (error) {
-    console.error('Apple sign-in failed:', error)
-  }
-}
-
-const facebookProvider = new FacebookAuthProvider()
-async function signInWithFacebook() {
-  try {
-    const result = await signInWithPopup(auth, facebookProvider)
-    const user = result.user
-    console.log('Facebook user signed in:', user.displayName)
-  } catch (error) {
-    console.error('Facebook sign-in failed:', error)
-  }
-}
 
 //for sign up lel
 const months = [
