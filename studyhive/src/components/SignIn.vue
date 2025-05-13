@@ -7,7 +7,7 @@
         <li class="font-bold text-4xl cursor-pointer p-7">Sign In</li>
         <div @click="close" class="absolute right-5 text-6xl cursor-pointer p-7">X</div>
       </ul>
-      <div class="signup w-full h-full bg-white hidden flex-col justify-center items-center gap-y-5">
+      <div class="signup w-full h-full bg-white flex flex-col justify-center items-center gap-y-5">
         <button
           @click=""
           class="bg-white w-[70%] border rounded-lg px-6 py-3 text-black font-bold shadow flex justify-center items-center gap-4"
@@ -201,7 +201,7 @@
         </button>
       </div>
       <div
-        class="signin w-full h-full bg-white flex-col justify-center items-center gap-y-5 flex"
+        class="signin w-full h-full bg-white flex-col justify-center items-center gap-y-5 hidden"
       >
         <button
           @click=""
@@ -333,7 +333,7 @@ async function getData() {
 //testing
 async function signIn() {
   if ((email.value === '') || (password.value === '')) {
-    return "You didn't fill in all the inputs";       //add more to it
+    return console.log("You didn't fill in all the inputs");       //add more to it
   }
   const { data, error } = await supabase.auth.signInWithPassword(
     {
@@ -343,7 +343,7 @@ async function signIn() {
   )
   let metadata = {};
   if (error) {
-      return "ERROR";       //add more to it
+      return console.log("ERROR");       //add more to it
   } else {
     metadata = await getData();
   }
@@ -363,7 +363,7 @@ async function signIn() {
 //testing
 async function signup() {
   if ((email.value === '') || (fullName === reactive(['', ''])) || (password.value === '') || (username.value === '')) {
-    return "You didn't fill in all the inputs";     //add more to it
+    return console.log("You didn't fill in all the inputs");     //add more to it
   }
   //check username - if it's unique or not
   let usernameExists = false;
@@ -378,10 +378,11 @@ async function signup() {
       return false;
     }
   }
-  usernameExists = checkUsername(username.value);
+  usernameExists = await checkUsername(username.value);
   if (usernameExists) {
-    return "Choose a different username - this one is used already."        //add more to it
+    return console.log("Choose a different username - this one is used already.")    //add more to it
   }
+
   const { data, error } = await supabase.auth.signUp(
     {
       email: email.value,
@@ -393,8 +394,12 @@ async function signup() {
         }
       }
     });
-    if (error) {
-      return "ERROR";   //add more to it
+    if (error) {      //change later - ADD stuff to show it instead of just on console!!!!
+      if (error.message.includes('user already registered')) {
+        console.log('Email is already in use');
+      } else {
+        console.error('Sign-up error:', error.message);
+      }
     }
     const user = {
       email: email.value,
