@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useUserStore } from '@/stores/users.ts';
 import { supabase } from '@/supabase.ts';
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView, useRouter } from 'vue-router'
 import { ref, onMounted, onUnmounted } from 'vue'
 import SignIn from './components/SignIn.vue'
 const showNav = ref(true)
@@ -47,6 +47,16 @@ async function signOut() {
   }
 }
 
+const router = useRouter();
+function goToLockedRoute(route: string) {
+  if (userStore.isSignedIn) {
+    router.push(route);
+  } else {
+    alert('You must be signed in to go to this page.');
+    opents();
+  }
+}
+
 const loggedin = ref(false);
 </script>
 
@@ -69,8 +79,8 @@ const loggedin = ref(false);
           >
           <ul class="flex gap-[3rem] items-center">
             <RouterLink to="/Home" class="text-xl font-semibold">Home</RouterLink>
-            <RouterLink to="/StudySets" class="text-xl font-semibold">Study Sets</RouterLink>
-            <RouterLink to="/Create" class="text-xl font-semibold">Create</RouterLink>
+            <RouterLink to="/StudySets" @click.prevent="goToLockedRoute('/StudySets') class="text-xl font-semibold">Study Sets</RouterLink>
+            <RouterLink to="/Create" @click.prevent="goToLockedRoute('/Create')" class="text-xl font-semibold">Create</RouterLink>
             <li
               @click="opents"
               v-if="!userStore.isSignedIn"
