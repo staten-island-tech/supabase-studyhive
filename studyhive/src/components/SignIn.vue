@@ -322,6 +322,14 @@ let fullName = reactive(['', '']);
 let password = ref('');
 let username = ref('');
 
+async function getData() {
+  const {
+    data: { user }
+  } = await supabase.auth.getUser();
+  const metadata = user?.user_metadata;
+  return metadata;
+}
+
 //testing
 async function signIn() {
   if ((email.value === '') || (password.value === '')) {
@@ -333,27 +341,46 @@ async function signIn() {
       password: password.value
     }
   )
-  console.log(data, error);
+  let metadata = {};
   if (error) {
       return "ERROR";       //add more to it
+  } else {
+    metadata = await getData();
   }
+
   const user = {
     email: email.value,
-    username: username.value,
-    fullName: fullName[0] + ' ' + fullName[1],
+    username: metadata.username,
+    fullName: metadata.full_name,
     pfp: 'https://i.pinimg.com/736x/53/57/61/53576100ffec1b41db0c013c46708cad.jpg'
   }
   userStore.signIn(user);
   close();
   email = ref('');
   password = ref('');
-  console.log(email.value, fullName, password.value, username.value);
 }
 
 //testing
 async function signup() {
   if ((email.value === '') || (fullName === reactive(['', ''])) || (password.value === '') || (username.value === '')) {
     return "You didn't fill in all the inputs";     //add more to it
+  }
+  //check username - if it's unique or not
+  let usernameExists = false;
+  async function checkUsername(username) {
+    const { data, error } = await supabase
+      .from('profiles')
+      .select()
+      .eq('username', username);
+    if (data.length > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  usernameExists = checkUsername(username.value);
+  if (usernameExists) {
+    return "Choose a different username - this one is used already."        //add more to it
   }
   const { data, error } = await supabase.auth.signUp(
     {
@@ -381,7 +408,6 @@ async function signup() {
     fullName = reactive(['', '']);
     password = ref('');
     username = ref('');
-    console.log(email.value, fullName, password.value, username.value);
 }
 
 //for sign up lel
