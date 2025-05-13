@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useUserStore } from '@/stores/users.ts';
+import { supabase } from '@/supabase.ts';
 import { RouterLink, RouterView } from 'vue-router'
 import { ref, onMounted, onUnmounted } from 'vue'
 import SignIn from './components/SignIn.vue'
@@ -16,6 +18,8 @@ const handleScroll = () => {
   lastScrollY = currentScrollY
 }
 
+const userStore = useUserStore();
+
 onMounted(() => {
   window.addEventListener('scroll', handleScroll)
 })
@@ -26,6 +30,14 @@ onUnmounted(() => {
 
 function opents() {
   showSignIn.value = true
+}
+
+async function signOut() {
+  userStore.signOut();
+  const { error } = await supabase.auth.signOut();
+  if (error) {
+    console.log(error);
+  }
 }
 
 const loggedin = ref(false);
@@ -54,13 +66,14 @@ const loggedin = ref(false);
             <RouterLink to="/Create" class="text-xl font-semibold">Create</RouterLink>
             <li
               @click="opents"
-              v-if="!loggedin"
+              v-if="!userStore.isSignedIn"
               class="font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-pink-400 px-4 py-2 rounded cursor-pointer "
             >
               SIGN IN
             </li>
             <li 
-              v-if="loggedin"
+              @click="signOut"
+              v-if="userStore.isSignedIn"
               class="font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-pink-400 px-4 py-2 rounded cursor-pointer">
               SIGN OUT
             </li>
