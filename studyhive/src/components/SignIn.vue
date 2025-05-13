@@ -3,8 +3,8 @@
     <div class="w-1/2 h-full bg-amber-300"></div>
     <div class="w-1/2 h-full bg-white flex flex-col justify-center items-center gap-y-5">
       <ul class="flex flex-row absolute gap-15 top-0 w-1/2">
-        <li class="font-bold text-4xl cursor-pointer p-7">Sign Up</li>
-        <li class="font-bold text-4xl cursor-pointer p-7">Sign In</li>
+        <li @click="switching" class="font-bold text-4xl cursor-pointer p-7">Sign Up</li>
+        <li @click="switching" class="font-bold text-4xl cursor-pointer p-7">Sign In</li>
         <div @click="close" class="absolute right-5 text-6xl cursor-pointer p-7">X</div>
       </ul>
       <div class="signup w-full h-full bg-white flex flex-col justify-center items-center gap-y-5">
@@ -303,6 +303,36 @@ const selectedmonth = ref('Month');
 function changeselected(selected: string) {
   return (selected = document.documentElement.innerText)
 }
+
+function switching(event: MouseEvent) {
+  const item = event.target as HTMLElement; // Casting event.target to HTMLElement
+  const signupElement = document.querySelector('.signup') as HTMLElement | null;
+  const signinElement = document.querySelector('.signin') as HTMLElement | null;
+
+  if (item.innerText === 'Sign Up') {
+    if (signupElement) {
+      signupElement.classList.remove('hidden');
+      signupElement.classList.add('flex');
+    }
+
+    if (signinElement) {
+      signinElement.classList.add('hidden');
+      signinElement.classList.remove('flex');
+    }
+  } else if (item.innerText === 'Sign In') {
+    if (signinElement) {
+      signinElement.classList.remove('hidden');
+      signinElement.classList.add('flex');
+    }
+
+    if (signupElement) {
+      signupElement.classList.add('hidden');
+      signupElement.classList.remove('flex');
+    }
+  }
+}
+
+
 
 //dont use firebase use supabase instead***
 const emit = defineEmits(['close']);
