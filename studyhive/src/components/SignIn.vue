@@ -332,15 +332,8 @@ function switching(event: MouseEvent) {
   }
 }
 
-
-
 //dont use firebase use supabase instead***
 const emit = defineEmits(['close']);
-function selection() {
-  //const selected = ref('sign in')
-  //if clicked sign up, then hide other and switch to sign up area, vice versa (also make it so that if selected it will be underlined)
-  console.log('uea');
-}
 function close() {
   emit('close');
 }
@@ -363,7 +356,8 @@ async function getData() {
 //testing
 async function signIn() {
   if ((email.value === '') || (password.value === '')) {
-    return console.log("You didn't fill in all the inputs");       //add more to it
+    alert("You didn't fill in all the inputs");       //add more to it
+    return null;
   }
   const { data, error } = await supabase.auth.signInWithPassword(
     {
@@ -371,13 +365,14 @@ async function signIn() {
       password: password.value
     }
   )
-  let metadata = {};
   if (error) {
-      return console.log("ERROR");       //add more to it
-  } else {
-    metadata = await getData();
+      alert("ERROR");       //add more to it
+      return null;
   }
-
+  let metadata = await getData();
+  if (metadata === undefined) {
+    metadata = {username: '', full_name: ''};
+  }
   const user = {
     email: email.value,
     username: metadata.username,
@@ -393,16 +388,17 @@ async function signIn() {
 //testing
 async function signup() {
   if ((email.value === '') || (fullName === reactive(['', ''])) || (password.value === '') || (username.value === '')) {
-    return console.log("You didn't fill in all the inputs");     //add more to it
+    alert("You didn't fill in all the inputs");     //add more to it
+    return null;
   }
   //check username - if it's unique or not
   let usernameExists = false;
-  async function checkUsername(username) {
+  async function checkUsername(username: string) {
     const { data, error } = await supabase
       .from('profiles')
       .select()
       .eq('username', username);
-    if (data.length > 0) {
+    if (data === null || data.length > 0) {
       return true;
     } else {
       return false;
@@ -410,9 +406,9 @@ async function signup() {
   }
   usernameExists = await checkUsername(username.value);
   if (usernameExists) {
-    return console.log("Choose a different username - this one is used already.")    //add more to it
+    alert("Choose a different username - this one is used already.")    //add more to it
+    return null;
   }
-
   const { data, error } = await supabase.auth.signUp(
     {
       email: email.value,
@@ -426,9 +422,11 @@ async function signup() {
     });
     if (error) {      //change later - ADD stuff to show it instead of just on console!!!!
       if (error.message.includes('user already registered')) {
-        console.log('Email is already in use');
+        alert('Email is already in use.');
+        return null;
       } else {
-        console.error('Sign-up error:', error.message);
+        alert(`Sign-up error: ${error.message}`);
+        return null;
       }
     }
     const user = {
@@ -459,7 +457,7 @@ const months = [
   'September',
   'October',
   'November',
-  'December',
+  'December'
 ]
 const currentYear = new Date().getFullYear()
 const years = ['Year']
@@ -472,5 +470,4 @@ for (let i = 1; i <= 31; i++) {
   days.push(i.toString())
 }
 </script>
-
 <style scoped></style>

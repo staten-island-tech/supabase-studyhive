@@ -52,7 +52,7 @@ function goToLockedRoute(route: string) {
   if (userStore.isSignedIn) {
     router.push(route);
   } else {
-    alert('You must be signed in to go to this page.');
+    alert('You must be signed in to go to this page. redirecting to sign up...');
     opents();
   }
 }
@@ -79,8 +79,8 @@ const loggedin = ref(false);
           >
           <ul class="flex gap-[3rem] items-center">
             <RouterLink to="/Home" class="text-xl font-semibold">Home</RouterLink>
-            <RouterLink to="/StudySets" @click.prevent="goToLockedRoute('/StudySets') class="text-xl font-semibold">Study Sets</RouterLink>
-            <RouterLink to="/Create" @click.prevent="goToLockedRoute('/Create')" class="text-xl font-semibold">Create</RouterLink>
+            <button @click="goToLockedRoute('/StudySets')" class="text-xl font-semibold">Study Sets</button>
+            <button @click="goToLockedRoute('/Create')" class="text-xl font-semibold">Create</button>
             <li
               @click="opents"
               v-if="!userStore.isSignedIn"
