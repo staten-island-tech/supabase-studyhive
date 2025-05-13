@@ -32,6 +32,13 @@ function opents() {
   showSignIn.value = true
 }
 
+function scrollUp() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
+
 async function signOut() {
   userStore.signOut();
   const { error } = await supabase.auth.signOut();
@@ -83,7 +90,7 @@ const loggedin = ref(false);
     </div>
   </header>
   <div class="fixed z-100 bottom-4 right-10">
-    <button class="w-24 h-24 bg-amber-500 rounded-[30rem]">🡡</button>
+    <button @click="scrollUp" class="w-24 h-24 bg-amber-500 rounded-[30rem]">🡡</button>
     <h3>scroll up</h3>
   </div>
   <SignIn v-if="showSignIn" @close="showSignIn = false" />
