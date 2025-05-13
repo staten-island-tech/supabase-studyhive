@@ -28,7 +28,7 @@ function opents() {
   showSignIn.value = true
 }
 
-const loggedin = ref(false);
+const loggedin = ref(false)
 </script>
 
 <template>
@@ -55,13 +55,14 @@ const loggedin = ref(false);
             <li
               @click="opents"
               v-if="!loggedin"
-              class="font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-pink-400 px-4 py-2 rounded cursor-pointer "
+              class="font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-pink-400 px-4 py-2 rounded cursor-pointer"
             >
               SIGN IN
             </li>
-            <li 
+            <li
               v-if="loggedin"
-              class="font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-pink-400 px-4 py-2 rounded cursor-pointer">
+              class="font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-pink-400 px-4 py-2 rounded cursor-pointer"
+            >
               SIGN OUT
             </li>
           </ul>
