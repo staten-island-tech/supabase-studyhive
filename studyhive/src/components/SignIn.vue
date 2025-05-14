@@ -196,7 +196,10 @@
         >
           Sign Up
         </button>
-        <button class="cursor-pointer w-[15rem] h-[4rem] rounded-2xl bg-white border-2">
+        <button
+          @click="switching"
+          class="signinbtn cursor-pointer w-[15rem] h-[4rem] rounded-2xl bg-white border-2"
+        >
           alr have an acc? sign in
         </button>
       </div>
@@ -299,35 +302,34 @@ import { reactive, ref } from 'vue';
 import { supabase } from '@/supabase.ts';
 import { useUserStore } from '@/stores/users.ts';
 import { gsap } from 'gsap';
+
 const selectedmonth = ref('Month');
 function changeselected(selected: string) {
   return (selected = document.documentElement.innerText)
 }
 
 function switching(event: MouseEvent) {
-  const item = event.target as HTMLElement; // Casting event.target to HTMLElement
-  const signupElement = document.querySelector('.signup') as HTMLElement | null;
-  const signinElement = document.querySelector('.signin') as HTMLElement | null;
+  const item = event.target as HTMLElement // Casting event.target to HTMLElement
+  const signupElement = document.querySelector('.signup') as HTMLElement | null
+  const signinElement = document.querySelector('.signin') as HTMLElement | null
 
   if (item.innerText === 'Sign Up') {
     if (signupElement) {
-      signupElement.classList.remove('hidden');
-      signupElement.classList.add('flex');
+      signupElement.classList.remove('hidden')
+      signupElement.classList.add('flex')
     }
-
     if (signinElement) {
-      signinElement.classList.add('hidden');
-      signinElement.classList.remove('flex');
+      signinElement.classList.add('hidden')
+      signinElement.classList.remove('flex')
     }
-  } else if (item.innerText === 'Sign In') {
+  } else if (item.innerText === 'Sign In' || 'alr have an acc? sign in') {
     if (signinElement) {
-      signinElement.classList.remove('hidden');
-      signinElement.classList.add('flex');
+      signinElement.classList.remove('hidden')
+      signinElement.classList.add('flex')
     }
-
     if (signupElement) {
-      signupElement.classList.add('hidden');
-      signupElement.classList.remove('flex');
+      signupElement.classList.add('hidden')
+      signupElement.classList.remove('flex')
     }
   }
 }
