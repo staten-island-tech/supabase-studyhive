@@ -75,12 +75,12 @@ const loggedin = ref(false);
             to="/"
             class="items-center left-10 text-2xl font-bold flex gap-x-5 bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-pink-400"
           >
-            <img src="/img/image.png" alt="" class="w-10" /> StudyHive</RouterLink
+            <img src="/img/image.png" alt="" class="w-10 cursor-pointer" /> StudyHive</RouterLink
           >
           <ul class="flex gap-[3rem] items-center">
-            <RouterLink to="/Home" class="text-xl font-semibold">Home</RouterLink>
-            <button @click="goToLockedRoute('/StudySets')" class="text-xl font-semibold">Study Sets</button>
-            <button @click="goToLockedRoute('/Create')" class="text-xl font-semibold">Create</button>
+            <RouterLink to="/Home" class="text-xl font-semibold hover:underline">Home</RouterLink>
+            <button @click="goToLockedRoute('/StudySets')" class="text-xl font-semibold hover:underline cursor-pointer">Study Sets</button>
+            <button @click="goToLockedRoute('/Create')" class="text-xl font-semibold hover:underline cursor-pointer">Create</button>
             <li
               @click="opents"
               v-if="!userStore.isSignedIn"
