@@ -13,11 +13,11 @@ export const useUserStore = defineStore('user', {
         userInfo: null as UserInfo | null
     }),
     actions: {
-        signIn(userData: UserInfo) {
+        async signIn(userData: UserInfo) {
             this.isSignedIn = true;
             this.userInfo = userData;
         },
-        signOut() {
+        async signOut() {
             this.isSignedIn = false;
             this.userInfo = null;
         }

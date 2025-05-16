@@ -301,6 +301,7 @@
 import { reactive, ref } from 'vue';
 import { supabase } from '@/supabase.ts';
 import { useUserStore } from '@/stores/users.ts';
+import { useRouter } from 'vue-router';
 import { gsap } from 'gsap';
 
 const selectedmonth = ref('Month');
@@ -334,6 +335,8 @@ function switching(event: MouseEvent) {
   }
 }
 
+const router = useRouter();
+
 //dont use firebase use supabase instead***
 const emit = defineEmits(['close']);
 function close() {
@@ -347,12 +350,24 @@ let fullName = reactive(['', '']);
 let password = ref('');
 let username = ref('');
 
-async function getData() {
+async function getAuthData() {
   const {
     data: { user }
   } = await supabase.auth.getUser();
   const metadata = user?.user_metadata;
   return metadata;
+}
+
+async function getPfp(email:string) {
+  const { data, error } = await supabase
+    .from('characters')
+    .select('avatar_url')
+    .eq('email', email)
+  if (error) {
+      alert("ERROR");       //add more to it
+      return null;
+  }
+    return data.toString;
 }
 
 //testing
@@ -371,15 +386,19 @@ async function signIn() {
       alert("ERROR");       //add more to it
       return null;
   }
-  let metadata = await getData();
+  let metadata = await getAuthData();
   if (metadata === undefined) {
     metadata = {username: '', full_name: ''};
+  }
+  let pfp = '';
+  if (getPfp(email.value) !== null) {
+    pfp = getPfp(email.value) || '';
   }
   const user = {
     email: email.value,
     username: metadata.username,
     fullName: metadata.full_name,
-    pfp: 'https://i.pinimg.com/736x/53/57/61/53576100ffec1b41db0c013c46708cad.jpg'
+    pfp: pfp
   }
   userStore.signIn(user);
   close();
@@ -438,7 +457,7 @@ async function signup() {
       pfp: 'https://i.pinimg.com/736x/53/57/61/53576100ffec1b41db0c013c46708cad.jpg'
     }
     userStore.signIn(user);
-    close();
+    router.push('/Home');
     email = ref('');
     fullName = reactive(['', '']);
     password = ref('');

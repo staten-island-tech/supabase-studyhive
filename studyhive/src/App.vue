@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { useUserStore } from '@/stores/users.ts';
 import { supabase } from '@/supabase.ts';
-import { RouterLink, RouterView, useRouter } from 'vue-router'
-import { ref, onMounted, onUnmounted } from 'vue'
-import SignIn from './components/SignIn.vue'
+import { RouterLink, RouterView, useRouter } from 'vue-router';
+import { ref, onMounted, onUnmounted } from 'vue';
+import SignIn from './components/SignIn.vue';
 const showNav = ref(true)
 let lastScrollY = window.scrollY
 const showShadow = ref(false)
@@ -29,7 +29,7 @@ onUnmounted(() => {
 })
 
 function opents() {
-  showSignIn.value = true
+  showSignIn.value = true;
 }
 
 function scrollUp() {
@@ -52,7 +52,6 @@ function goToLockedRoute(route: string) {
   if (userStore.isSignedIn) {
     router.push(route);
   } else {
-    alert('You must be signed in to go to this page. redirecting to sign up...');
     opents();
   }
 }
@@ -78,8 +77,8 @@ const loggedin = ref(false);
             <img src="/img/image.png" alt="" class="w-10 cursor-pointer" /> StudyHive</RouterLink
           >
           <ul class="flex gap-[3rem] items-center">
-            <RouterLink to="/Home" class="text-xl font-semibold hover:underline">Home</RouterLink>
-            <button @click="goToLockedRoute('/StudySets')" class="text-xl font-semibold hover:underline cursor-pointer">Study Sets</button>
+            <button @click="goToLockedRoute('/Home')" class="text-xl font-semibold hover:underline">Home</button>
+            <RouterLink to="/StudySets" class="text-xl font-semibold hover:underline cursor-pointer">Study Sets</RouterLink>
             <button @click="goToLockedRoute('/Create')" class="text-xl font-semibold hover:underline cursor-pointer">Create</button>
             <li
               @click="opents"
