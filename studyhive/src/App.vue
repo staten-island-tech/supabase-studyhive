@@ -52,6 +52,7 @@ const loggedin = ref(false);
 </script>
 
 <template>
+  <div class="bg-white">
   <header>
     <div class="wrapper">
       <nav
@@ -69,9 +70,9 @@ const loggedin = ref(false);
             <img src="/img/image.png" alt="" class="w-10 cursor-pointer" /> StudyHive</RouterLink
           >
           <ul class="flex gap-[3rem] items-center">
-            <button @click="goToLockedRoute('/Home')" class="text-xl font-semibold hover:underline">Home</button>
-            <RouterLink to="/StudySets" class="text-xl font-semibold hover:underline cursor-pointer">Study Sets</RouterLink>
-            <button @click="goToLockedRoute('/Create')" class="text-xl font-semibold hover:underline cursor-pointer">Create</button>
+            <button @click="goToLockedRoute('/Home')" class="text-xl font-semibold text-black hover:underline">Home</button>
+            <RouterLink to="/StudySets" class="text-xl font-semibold text-black hover:underline cursor-pointer">Study Sets</RouterLink>
+            <button @click="goToLockedRoute('/Create')" class="text-xl font-semibold text-black hover:underline cursor-pointer">Create</button>
             <li
               @click="opents"
               v-if="!userStore.isSignedIn"
@@ -153,6 +154,7 @@ const loggedin = ref(false);
       <p>Copyright © idk - All right reserved by StudyHive peopl who created it</p>
     </aside>
   </footer>
+  </div>
 </template>
 
 <style scoped></style>
