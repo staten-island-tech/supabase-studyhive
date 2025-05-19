@@ -39,14 +39,6 @@ function scrollUp() {
   });
 }
 
-async function signOut() {
-  userStore.signOut();
-  const { error } = await supabase.auth.signOut();
-  if (error) {
-    console.log(error);
-  }
-}
-
 const router = useRouter();
 function goToLockedRoute(route: string) {
   if (userStore.isSignedIn) {
@@ -88,7 +80,7 @@ const loggedin = ref(false);
               SIGN IN
             </li>
             <li 
-              @click="signOut"
+              @click="userStore.signOut"
               v-if="userStore.isSignedIn"
               class="font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-pink-400 px-4 py-2 rounded cursor-pointer">
               SIGN OUT

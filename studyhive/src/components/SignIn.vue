@@ -350,57 +350,13 @@ let fullName = reactive(['', '']);
 let password = ref('');
 let username = ref('');
 
-async function getAuthData() {
-  const {
-    data: { user }
-  } = await supabase.auth.getUser();
-  const metadata = user?.user_metadata;
-  return metadata;
-}
-
-async function getPfp(email:string) {
-  const { data, error } = await supabase
-    .from('characters')
-    .select('avatar_url')
-    .eq('email', email)
-  if (error) {
-      alert("ERROR");       //add more to it
-      return null;
-  }
-    return data.toString;
-}
-
 //testing
 async function signIn() {
   if ((email.value === '') || (password.value === '')) {
     alert("You didn't fill in all the inputs");       //add more to it
     return null;
   }
-  const { data, error } = await supabase.auth.signInWithPassword(
-    {
-      email: email.value,
-      password: password.value
-    }
-  )
-  if (error) {
-      alert("ERROR");       //add more to it
-      return null;
-  }
-  let metadata = await getAuthData();
-  if (metadata === undefined) {
-    metadata = {username: '', full_name: ''};
-  }
-  let pfp = '';
-  if (getPfp(email.value) !== null) {
-    pfp = getPfp(email.value) || '';
-  }
-  const user = {
-    email: email.value,
-    username: metadata.username,
-    fullName: metadata.full_name,
-    pfp: pfp
-  }
-  userStore.signIn(user);
+  userStore.signIn(email.value, password.value);
   close();
   email = ref('');
   password = ref('');
@@ -430,38 +386,12 @@ async function signup() {
     alert("Choose a different username - this one is used already.")    //add more to it
     return null;
   }
-  const { data, error } = await supabase.auth.signUp(
-    {
-      email: email.value,
-      password: password.value,
-      options: {
-        data: {
-          username: username.value,
-          full_name: fullName[0] + ' ' + fullName[1]
-        }
-      }
-    });
-    if (error) {      //change later - ADD stuff to show it instead of just on console!!!!
-      if (error.message.includes('user already registered')) {
-        alert('Email is already in use.');
-        return null;
-      } else {
-        alert(`Sign-up error: ${error.message}`);
-        return null;
-      }
-    }
-    const user = {
-      email: email.value,
-      username: username.value,
-      fullName: fullName[0] + ' ' + fullName[1],
-      pfp: 'https://i.pinimg.com/736x/53/57/61/53576100ffec1b41db0c013c46708cad.jpg'
-    }
-    userStore.signIn(user);
-    router.push('/Home');
-    email = ref('');
-    fullName = reactive(['', '']);
-    password = ref('');
-    username = ref('');
+  userStore.signUp(email.value, password.value, username.value, fullName);
+  router.push('/Home');
+  email = ref('');
+  fullName = reactive(['', '']);
+  password = ref('');
+  username = ref('');
 }
 
 //for sign up lel
