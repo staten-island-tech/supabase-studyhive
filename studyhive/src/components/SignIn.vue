@@ -3,8 +3,8 @@
     <div class="w-1/2 h-full bg-amber-300"></div>
     <div class="w-1/2 h-full bg-white flex flex-col justify-center items-center gap-y-5">
       <ul class="flex flex-row absolute gap-15 top-0 w-1/2">
-        <li @click="switching" class="font-bold text-4xl cursor-pointer p-7">Sign Up</li>
-        <li @click="switching" class="font-bold text-4xl cursor-pointer p-7">Sign In</li>
+        <li @click="switching" class="font-bold text-4xl cursor-pointer p-7 text-black">Sign Up</li>
+        <li @click="switching" class="font-bold text-4xl cursor-pointer p-7 text-black">Sign In</li>
         <div @click="close" class="absolute right-5 text-6xl cursor-pointer p-7">X</div>
       </ul>
       <div class="signup w-full h-full bg-white flex flex-col justify-center items-center gap-y-5">
@@ -123,13 +123,13 @@
         </label>
         <p>By signing up, you accept StudyHive's Terms of Service and Privacy Policy</p>
         <button
-          class="cursor-pointer w-[15rem] h-[4rem] rounded-2xl bg-gradient-to-r from-amber-500 to-pink-400"
+          class="cursor-pointer w-[15rem] h-[4rem] rounded-2xl bg-gradient-to-r from-amber-500 to-pink-400 text-white" 
         >
           Sign Up
         </button>
         <button
           @click="switching"
-          class="signinbtn cursor-pointer w-[15rem] h-[4rem] rounded-2xl bg-white border-2"
+          class="signinbtn cursor-pointer w-[15rem] h-[4rem] rounded-2xl bg-white border-2 text-black"
         >
           alr have an acc? sign in
         </button>

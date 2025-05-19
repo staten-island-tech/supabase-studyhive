@@ -32,6 +32,7 @@ const loggedin = ref(false)
 </script>
 
 <template>
+  <div class="bg-white">
   <header>
     <div class="wrapper">
       <nav
@@ -49,9 +50,9 @@ const loggedin = ref(false)
             <img src="/img/image.png" alt="" class="w-10" /> StudyHive</RouterLink
           >
           <ul class="flex gap-[3rem] items-center">
-            <RouterLink to="/Home" class="text-xl font-semibold">Home</RouterLink>
-            <RouterLink to="/StudySets" class="text-xl font-semibold">Study Sets</RouterLink>
-            <RouterLink to="/Create" class="text-xl font-semibold">Create</RouterLink>
+            <RouterLink to="/Home" class="text-xl font-semibold text-black">Home</RouterLink>
+            <RouterLink to="/StudySets" class="text-xl font-semibold text-black">Study Sets</RouterLink>
+            <RouterLink to="/Create" class="text-xl font-semibold text-black">Create</RouterLink>
             <li
               @click="opents"
               v-if="!loggedin"
@@ -133,6 +134,7 @@ const loggedin = ref(false)
       <p>Copyright © idk - All right reserved by StudyHive peopl who created it</p>
     </aside>
   </footer>
+  </div>
 </template>
 
 <style scoped></style>
