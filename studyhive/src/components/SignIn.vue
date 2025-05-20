@@ -123,7 +123,7 @@
         </label>
         <p>By signing up, you accept StudyHive's Terms of Service and Privacy Policy</p>
         <button
-          class="cursor-pointer w-[15rem] h-[4rem] rounded-2xl bg-gradient-to-r from-amber-500 to-pink-400 text-white" 
+          class="cursor-pointer w-[15rem] h-[4rem] rounded-2xl bg-gradient-to-r from-amber-500 to-pink-400 text-white"
         >
           Sign Up
         </button>
@@ -137,39 +137,6 @@
       <div
         class="signin w-full h-full bg-white flex-col justify-center items-center gap-y-5 hidden"
       >
-        <button
-          @click=""
-          class="bg-white w-[70%] border rounded-lg px-6 py-3 text-black font-bold shadow flex justify-center items-center gap-4"
-        >
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png"
-            alt="Facebook"
-            class="w-6 h-6"
-          />
-          Sign in with Facebook
-        </button>
-        <button
-          @click=""
-          class="bg-white w-[70%] border rounded-lg px-6 py-3 text-black font-bold shadow flex justify-center items-center gap-4"
-        >
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg"
-            alt="Apple"
-            class="w-6 h-6"
-          />
-          Sign in with Apple
-        </button>
-        <button
-          @click=""
-          class="bg-white w-[70%] border rounded-lg px-6 py-3 text-black font-bold shadow flex justify-center items-center gap-4"
-        >
-          <img
-            src="https://developers.google.com/identity/images/g-logo.png"
-            alt="Google"
-            class="w-6 h-6"
-          />
-          Sign in with Google
-        </button>
         <label class="input validator w-[70%] h-1/15">
           <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <g
