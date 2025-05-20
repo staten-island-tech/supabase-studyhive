@@ -27,7 +27,7 @@
             popovertarget="popover-1"
             style="anchor-name: --anchor-1"
           >
-            {{ selectedmonth }}
+            {{ selectedMonth }}
           </button>
           <ul
             class="dropdown menu w-52 rounded-box bg-base-100 shadow-sm"
@@ -36,7 +36,7 @@
             style="position-anchor: --anchor-1"
           >
             <li v-for="month in months" :key="month">
-              <a @click="changeselected(selectedmonth)">{{ month }}</a>
+              <a @click="changeselected(selectedMonth)">{{ month }}</a>
             </li>
           </ul>
           <button
@@ -304,9 +304,46 @@ import { useUserStore } from '@/stores/users.ts';
 import { useRouter } from 'vue-router';
 import { gsap } from 'gsap';
 
-const selectedmonth = ref('Month');
+const selectedMonth = ref('Month');
+const selectedDay = ref('Day');
+const selectedYear = ref('Year');
+const birthday = ref(selectedYear + '-' + selectedMonth + '-' + selectedDay)
 function changeselected(selected: string) {
+  if (selected === 'selectedMonth') {
+    
+  }
   return (selected = document.documentElement.innerText)
+}
+
+//for sign up lel
+const months = [
+  'Month',
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+]
+const currentYear = new Date().getFullYear()
+const years = ['Year']
+for (let year = currentYear - 129; year <= currentYear; year++) {
+  years.push(year.toString())
+}
+console.log(years)
+const days = ['Day']
+let x ='';
+for (let i = 1; i <= 31; i++) {
+  if (i.toString.length > 2) {
+    x = '0' + i;
+  }
+  days.push(i.toString())
 }
 
 function switching(event: MouseEvent) {
@@ -341,6 +378,7 @@ const router = useRouter();
 const emit = defineEmits(['close']);
 function close() {
   emit('close');
+  router.push('/Home');
 }
 
 const userStore = useUserStore();
@@ -392,33 +430,6 @@ async function signup() {
   fullName = reactive(['', '']);
   password = ref('');
   username = ref('');
-}
-
-//for sign up lel
-const months = [
-  'Month',
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December'
-]
-const currentYear = new Date().getFullYear()
-const years = ['Year']
-for (let year = currentYear - 129; year <= currentYear; year++) {
-  years.push(year.toString())
-}
-console.log(years)
-const days = ['Day']
-for (let i = 1; i <= 31; i++) {
-  days.push(i.toString())
 }
 </script>
 <style scoped></style>

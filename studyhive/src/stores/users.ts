@@ -33,10 +33,10 @@ export const useUserStore = defineStore('user', {
                 return metadata;
             }
 
-            async function getPfp(email: string) {
+            async function getData(email: string, type: string) {
                 const { data, error } = await supabase
                     .from('characters')
-                    .select('avatar_url')
+                    .select(type)
                     .eq('email', email)
                 if (error) {
                     alert("ERROR");       //add more to it
@@ -49,14 +49,19 @@ export const useUserStore = defineStore('user', {
                 metadata = { username: '', full_name: '' };
             }
             let pfp = '';
-            if (getPfp(email) !== null) {
-                pfp = getPfp(email) || '';
+            if (getData(email, 'avatar_url') !== null) {
+                pfp = getData(email, 'avatar_url') || '';
+            }
+            let birthday = '';
+            if (getData(email, 'birthday') !== null) {
+                birthday = getData(email, 'birthday') || '';
             }
             const user = {
                 email: email,
                 username: metadata.username,
                 fullName: metadata.full_name,
-                pfp: pfp
+                pfp: pfp,
+                birthday: birthday
             }
             this.isSignedIn = true;
             this.userInfo = user;
@@ -70,7 +75,8 @@ export const useUserStore = defineStore('user', {
                     options: {
                         data: {
                             username: username,
-                            full_name: fullName[0] + ' ' + fullName[1]
+                            full_name: fullName[0] + ' ' + fullName[1],
+                            birthday: birthday
                         }
                     }
                 });
@@ -87,7 +93,8 @@ export const useUserStore = defineStore('user', {
                 email: email,
                 username: username,
                 fullName: fullName[0] + ' ' + fullName[1],
-                pfp: 'https://i.pinimg.com/736x/53/57/61/53576100ffec1b41db0c013c46708cad.jpg'
+                pfp: 'https://i.pinimg.com/736x/53/57/61/53576100ffec1b41db0c013c46708cad.jpg',
+                birthday: birthday
             }
             this.isSignedIn = true;
             this.userInfo = user;
