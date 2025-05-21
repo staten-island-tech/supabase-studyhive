@@ -4,11 +4,6 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import StudyCard from '@/components/StudyCard.vue'
-import { userInfo } from '@/compos/UserUsers'
-
-const { Info } = userInfo()
-</script>
+<script setup lang="ts"></script>
 
 <style scoped></style>

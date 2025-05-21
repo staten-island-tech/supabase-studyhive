@@ -1,7 +1,15 @@
 <template>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
   <div class="bg-white flex flex-col rounded-2xl mb-4">
-    <div class="mx-10 my-4">
+    <div class="mx-10 my-4 flex flex-row justify-between items-center">
       <h1 class="font-bold text-gray-400 text-[110%]">1</h1>
+      <i
+        @click=""
+        class="fa-solid fa-trash-can p-2 rounded-2xl hover:bg-amber-300 cursor-pointer transition-colors"
+      ></i>
     </div>
     <div class="line w-full h-[2px] bg-[#F6F7FB]"></div>
     <div class="flex flex-row justify-between m-12">

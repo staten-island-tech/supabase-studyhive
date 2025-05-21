@@ -20,9 +20,11 @@
       >
         ADD CARD
       </div>
-      <div class="w-full flex flex-row justify-end gap-3">
+      <div class="w-full flex flex-row justify-end gap-3 mt-3">
         <button class="w-1/9 rounded-[100rem] outline-1 aspect-[3]">Create</button>
-        <button>Create and practice</button>
+        <button class="w-1/5 font-bold rounded-[100rem] bg-amber-400 outline-1 aspect-[3]">
+          Create and practice
+        </button>
       </div>
     </div>
   </div>
