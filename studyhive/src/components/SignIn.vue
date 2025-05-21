@@ -27,7 +27,7 @@
             popovertarget="popover-1"
             style="anchor-name: --anchor-1"
           >
-            {{ selectedMonth }}
+            {{ monthDisplayed }}
           </button>
           <ul
             class="dropdown menu w-52 rounded-box bg-base-100 shadow-sm"
@@ -36,7 +36,7 @@
             style="position-anchor: --anchor-1"
           >
             <li v-for="month in months" :key="month">
-              <a @click="changeselected(selectedMonth)">{{ month }}</a>
+              <a @click="changeselected('selectedMonth', month)">{{ month }}</a>
             </li>
           </ul>
           <button
@@ -44,7 +44,7 @@
             popovertarget="popover-2"
             style="anchor-name: --anchor-2"
           >
-            Day
+            {{selectedDay}}
           </button>
           <ul
             class="dropdown menu w-52 rounded-box bg-base-100 shadow-sm max-h-[30rem]"
@@ -53,7 +53,7 @@
             style="position-anchor: --anchor-2"
           >
             <li v-for="day in days">
-              <a>{{ day }}</a>
+              <a @click="changeselected('selectedDay', day)">{{ day }}</a>
             </li>
           </ul>
           <button
@@ -61,7 +61,7 @@
             popovertarget="popover-3"
             style="anchor-name: --anchor-3"
           >
-            Year
+            {{selectedYear}}
           </button>
           <ul
             class="dropdown menu w-52 rounded-box bg-base-100 shadow-sm max-h-[30rem]"
@@ -70,7 +70,7 @@
             style="position-anchor: --anchor-3"
           >
             <li v-for="year in years">
-              <a>{{ year }}</a>
+              <a @click="changeselected('selectedYear', year)">{{ year }}</a>
             </li>
           </ul>
         </div>
@@ -305,14 +305,34 @@ import { useRouter } from 'vue-router';
 import { gsap } from 'gsap';
 
 const selectedMonth = ref('Month');
+const monthDisplayed = ref('Month');
 const selectedDay = ref('Day');
 const selectedYear = ref('Year');
-const birthday = ref(selectedYear + '-' + selectedMonth + '-' + selectedDay)
-function changeselected(selected: string) {
+const birthday = ref(selectedYear.value + '-' + selectedMonth.value + '-' + selectedDay.value)
+function changeselected(selected: string, x: string) {
   if (selected === 'selectedMonth') {
-    
+    let n = 0;
+    let i = 0;
+    monthDisplayed.value = x;
+    for (const month of months) {
+      console.log(month);
+      if (month === x) {
+        n = i;
+      }
+      i++;
+    }
+    if (n.toString.length < 2) {
+      selectedMonth.value = `0${n}`;
+    } else {
+      selectedMonth.value = `${n}`;
+    }
+  } else {
+    if (selected === 'selectedDay') {
+      selectedDay.value = x;
+    } else {
+      selectedYear.value = x;
+    }
   }
-  return (selected = document.documentElement.innerText)
 }
 
 //for sign up lel
@@ -340,10 +360,12 @@ console.log(years)
 const days = ['Day']
 let x ='';
 for (let i = 1; i <= 31; i++) {
-  if (i.toString.length > 2) {
-    x = '0' + i;
+  if (i < 10) {
+    x = `0${i}`;
+    days.push(x);
+  } else {
+    days.push(i.toString());
   }
-  days.push(i.toString())
 }
 
 function switching(event: MouseEvent) {
