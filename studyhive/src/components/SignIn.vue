@@ -304,10 +304,10 @@ import { useUserStore } from '@/stores/users.ts';
 import { useRouter } from 'vue-router';
 import { gsap } from 'gsap';
 
-const selectedMonth = ref('Month');
-const monthDisplayed = ref('Month');
-const selectedDay = ref('Day');
-const selectedYear = ref('Year');
+let selectedMonth = ref('Month');
+let monthDisplayed = ref('Month');
+let selectedDay = ref('Day');
+let selectedYear = ref('Year');
 const birthday = ref(selectedYear.value + '-' + selectedMonth.value + '-' + selectedDay.value)
 function changeselected(selected: string, x: string) {
   if (selected === 'selectedMonth') {
@@ -446,12 +446,16 @@ async function signup() {
     alert("Choose a different username - this one is used already.")    //add more to it
     return null;
   }
-  userStore.signUp(email.value, password.value, username.value, fullName);
+  userStore.signUp(email.value, password.value, username.value, fullName, birthday.value);
   router.push('/Home');
   email = ref('');
   fullName = reactive(['', '']);
   password = ref('');
   username = ref('');
+  selectedMonth = ref('Month');
+  monthDisplayed = ref('Month');
+  selectedDay = ref('Day');
+  selectedYear = ref('Year');
 }
 </script>
 <style scoped></style>
