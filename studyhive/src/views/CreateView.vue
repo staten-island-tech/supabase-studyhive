@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-40 w-full h-[300rem] bg-[#F6F7FB] flex justify-center">
+  <div class="pt-40 w-full h-fit pb-[2rem] bg-[#F6F7FB] flex justify-center">
     <div class="w-3/5">
       <div class="flex flex-col justify-center mb-4 gap-5">
         <input
