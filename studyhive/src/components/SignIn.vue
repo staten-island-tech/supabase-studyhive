@@ -442,20 +442,12 @@ async function signup() {
     }
   }
   usernameExists = await checkUsername(username.value);
-  if (usernameExists) {
+  /* if (usernameExists) {
     alert("Choose a different username - this one is used already.")    //add more to it
     return null;
-  }
+  } */
   userStore.signUp(email.value, password.value, username.value, fullName, birthday.value);
-  router.push('/Home');
-  email = ref('');
-  fullName = reactive(['', '']);
-  password = ref('');
-  username = ref('');
-  selectedMonth = ref('Month');
-  monthDisplayed = ref('Month');
-  selectedDay = ref('Day');
-  selectedYear = ref('Year');
+  close();
 }
 </script>
 <style scoped></style>

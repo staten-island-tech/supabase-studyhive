@@ -1,4 +1,4 @@
-import { supabase } from '@/supabase.ts';
+import { supabase } from './supabase';
 
 async function testSignup() {
     const { data, error } = await supabase.auth.signUp({
@@ -8,14 +8,15 @@ async function testSignup() {
             data: {
                 username: 'hi',
                 full_name: 'Elisa Chen',
+                birthday: '01-02-2009'
             },
         },
     });
 
     if (error) {
-        console.error('❌ Sign up failed:', error.message);
+        console.error('Sign up failed:', error.message);
     } else {
-        console.log('✅ Sign up succeeded! User ID:', data.user?.id);
+        console.log('Sign up succeeded! User ID:', data.user?.id);
     }
     console.log(data);
 }
