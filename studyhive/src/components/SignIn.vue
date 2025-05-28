@@ -436,16 +436,16 @@ async function signup() {
       .select()
       .eq('username', username);
     if (data === null || data.length > 0) {
-      return true;
-    } else {
       return false;
+    } else {
+      return true;
     }
   }
   usernameExists = await checkUsername(username.value);
-  /* if (usernameExists) {
-    alert("Choose a different username - this one is used already.")    //add more to it
+  if (usernameExists) {
+    alert("Choose a different username - this one is already in use.")    //add more to it
     return null;
-  } */
+  }
   userStore.signUp(email.value, password.value, username.value, fullName, birthday.value);
   close();
 }
