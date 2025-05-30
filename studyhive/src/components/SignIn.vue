@@ -416,8 +416,8 @@ async function signIn() {
   }
   userStore.signIn(email.value, password.value);
   close();
-  email = ref('');
-  password = ref('');
+  email.value = '';
+  password.value = '';
 }
 
 //testing

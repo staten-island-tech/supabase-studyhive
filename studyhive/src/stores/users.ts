@@ -5,7 +5,10 @@ interface UserInfo {
     email: string,
     username: string,
     fullName: string,
-    pfp: string
+    pfp: string,
+    birthday: string,
+    createdQuiz: object,
+    favoritedQuiz: object
 }
 
 export const useUserStore = defineStore('user', {
@@ -25,43 +28,27 @@ export const useUserStore = defineStore('user', {
                 alert("ERROR");       //add more to it
                 return null;
             }
-            async function getAuthData() {
-                const {
-                    data: { user }
-                } = await supabase.auth.getUser();
-                const metadata = user?.user_metadata;
-                return metadata;
-            }
-
-            async function getData(email: string, type: string) {
+            async function getData(email: string) {
                 const { data, error } = await supabase
                     .from('profiles')
-                    .select(type)       // to select all, do: .select
-                    .eq('email', email)
+                    .select()       // to select all, do: .select       to select some do: .select(column title)
+                    .filter('email', 'in', email)
                 if (error) {
                     alert("ERROR");       //add more to it
                     return 'null';
                 }
-                return data.toString;
+                console.log(data);
+                return data;
             }
-            let metadata = await getAuthData();
-            if (metadata === undefined) {
-                metadata = { username: '', full_name: '' };
-            }
-            let pfp = '';
-            if (getData(email, 'avatar_url') !== null) {
-                pfp = getData(email, 'avatar_url') || '';
-            }
-            let birthday = '';
-            if (getData(email, 'birthday') !== null) {
-                birthday = getData(email, 'birthday') || '';
-            }
+            console.log(data);
             const user = {
                 email: email,
-                username: metadata.username,
-                fullName: metadata.full_name,
-                pfp: pfp,
-                birthday: birthday
+                username: data.user.user_metadata.username,
+                fullName: data.user.user_metadata.full_name,
+                pfp: data.user.user_metadata.pfp,
+                birthday: data.user.user_metadata.birthday,
+                createdQuiz: getData(email).created_quizzes,
+                favoritedQuiz: getData(email).favorited_quizzes
             }
             console.log(user);
             this.isSignedIn = true;
@@ -77,7 +64,8 @@ export const useUserStore = defineStore('user', {
                         data: {
                             username: username,
                             full_name: fullName[0] + ' ' + fullName[1],
-                            birthday: birthday
+                            birthday: birthday,
+                            pfp: 'https://i.pinimg.com/736x/53/57/61/53576100ffec1b41db0c013c46708cad.jpg'
                         }
                     }
                 });
@@ -90,12 +78,15 @@ export const useUserStore = defineStore('user', {
                     return null;
                 }
             }
+            console.log(data);
             const user = {
                 email: email,
                 username: username,
                 fullName: fullName[0] + ' ' + fullName[1],
                 pfp: 'https://i.pinimg.com/736x/53/57/61/53576100ffec1b41db0c013c46708cad.jpg',
-                birthday: birthday
+                birthday: birthday,
+                createdQuiz: {},
+                favoritedQuiz: {}
             }
             console.log(user);
             this.isSignedIn = true;
