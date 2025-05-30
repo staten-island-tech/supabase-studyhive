@@ -35,8 +35,8 @@ export const useUserStore = defineStore('user', {
 
             async function getData(email: string, type: string) {
                 const { data, error } = await supabase
-                    .from('characters')
-                    .select(type)
+                    .from('profiles')
+                    .select(type)       // to select all, do: .select
                     .eq('email', email)
                 if (error) {
                     alert("ERROR");       //add more to it
@@ -63,6 +63,7 @@ export const useUserStore = defineStore('user', {
                 pfp: pfp,
                 birthday: birthday
             }
+            console.log(user);
             this.isSignedIn = true;
             this.userInfo = user;
 
@@ -96,6 +97,7 @@ export const useUserStore = defineStore('user', {
                 pfp: 'https://i.pinimg.com/736x/53/57/61/53576100ffec1b41db0c013c46708cad.jpg',
                 birthday: birthday
             }
+            console.log(user);
             this.isSignedIn = true;
             this.userInfo = user;
         },

@@ -308,14 +308,13 @@ let selectedMonth = ref('Month');
 let monthDisplayed = ref('Month');
 let selectedDay = ref('Day');
 let selectedYear = ref('Year');
-const birthday = ref(selectedYear.value + '-' + selectedMonth.value + '-' + selectedDay.value)
+let birthday = ref(selectedYear.value + '-' + selectedMonth.value + '-' + selectedDay.value);
 function changeselected(selected: string, x: string) {
   if (selected === 'selectedMonth') {
     let n = 0;
     let i = 0;
     monthDisplayed.value = x;
     for (const month of months) {
-      console.log(month);
       if (month === x) {
         n = i;
       }
@@ -333,6 +332,7 @@ function changeselected(selected: string, x: string) {
       selectedYear.value = x;
     }
   }
+  birthday.value = selectedYear.value + '-' + selectedMonth.value + '-' + selectedDay.value;
 }
 
 //for sign up lel
@@ -356,7 +356,6 @@ const years = ['Year']
 for (let year = currentYear - 129; year <= currentYear; year++) {
   years.push(year.toString())
 }
-console.log(years)
 const days = ['Day']
 let x ='';
 for (let i = 1; i <= 31; i++) {
@@ -367,7 +366,6 @@ for (let i = 1; i <= 31; i++) {
     days.push(i.toString());
   }
 }
-
 function switching(event: MouseEvent) {
   const item = event.target as HTMLElement // Casting event.target to HTMLElement
   const signupElement = document.querySelector('.signup') as HTMLElement | null
@@ -424,7 +422,7 @@ async function signIn() {
 
 //testing
 async function signup() {
-  if ((email.value === '') || (fullName === reactive(['', ''])) || (password.value === '') || (username.value === '')) {
+  if ((email.value === '') || (fullName === reactive(['', ''])) || (password.value === '') || (username.value === '') || (birthday.value === 'Year-Month-Day')) {
     alert("You didn't fill in all the inputs");     //add more to it
     return null;
   }
@@ -435,18 +433,25 @@ async function signup() {
       .from('profiles')
       .select()
       .eq('username', username);
-    if (data === null || data.length > 0) {
+    if ((data === null) || (data.length === 0)) {
       return false;
     } else {
       return true;
     }
   }
   usernameExists = await checkUsername(username.value);
-  if (usernameExists) {
+  if (usernameExists === true) {
     alert("Choose a different username - this one is already in use.")    //add more to it
     return null;
   }
   userStore.signUp(email.value, password.value, username.value, fullName, birthday.value);
+  email.value = '';
+  password.value = '';
+  username.value = '';
+  fullName = ['', ''];
+  selectedYear.value = 'Year';
+  selectedMonth.value = 'Month';
+  selectedDay.value = 'Day';
   close();
 }
 </script>
