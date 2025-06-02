@@ -28,11 +28,10 @@ export const useUserStore = defineStore('user', {
                 alert("ERROR");       //add more to it
                 return null;
             }
-            async function getData(email: string) {
+            async function getData() {
                 const { data, error } = await supabase
                     .from('profiles')
-                    .select()       // to select all, do: .select       to select some do: .select(column title)
-                    .filter('email', 'in', email)
+                    .select('*')       // to select all, do: .select       to select some do: .select(column title)
                 if (error) {
                     alert("ERROR");       //add more to it
                     return 'null';
@@ -47,8 +46,8 @@ export const useUserStore = defineStore('user', {
                 fullName: data.user.user_metadata.full_name,
                 pfp: data.user.user_metadata.pfp,
                 birthday: data.user.user_metadata.birthday,
-                createdQuiz: getData(email).created_quizzes,
-                favoritedQuiz: getData(email).favorited_quizzes
+                createdQuiz: getData(),
+                favoritedQuiz: getData()
             }
             console.log(user);
             this.isSignedIn = true;
