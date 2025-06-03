@@ -6,9 +6,7 @@ interface UserInfo {
     username: string,
     fullName: string,
     pfp: string,
-    birthday: string,
-    createdQuiz: object,
-    favoritedQuiz: object
+    birthday: string
 }
 
 export const useUserStore = defineStore('user', {
@@ -44,10 +42,8 @@ export const useUserStore = defineStore('user', {
                 email: email,
                 username: data.user.user_metadata.username,
                 fullName: data.user.user_metadata.full_name,
-                pfp: data.user.user_metadata.pfp,
-                birthday: data.user.user_metadata.birthday,
-                createdQuiz: getData(),
-                favoritedQuiz: getData()
+                pfp: data.user.user_metadata.avatar_url,
+                birthday: data.user.user_metadata.birthday
             }
             console.log(user);
             this.isSignedIn = true;
@@ -64,7 +60,7 @@ export const useUserStore = defineStore('user', {
                             username: username,
                             full_name: fullName[0] + ' ' + fullName[1],
                             birthday: birthday,
-                            pfp: 'https://i.pinimg.com/736x/53/57/61/53576100ffec1b41db0c013c46708cad.jpg'
+                            avatar_url: 'https://i.pinimg.com/736x/53/57/61/53576100ffec1b41db0c013c46708cad.jpg'
                         }
                     }
                 });
@@ -83,9 +79,7 @@ export const useUserStore = defineStore('user', {
                 username: username,
                 fullName: fullName[0] + ' ' + fullName[1],
                 pfp: 'https://i.pinimg.com/736x/53/57/61/53576100ffec1b41db0c013c46708cad.jpg',
-                birthday: birthday,
-                createdQuiz: {},
-                favoritedQuiz: {}
+                birthday: birthday
             }
             console.log(user);
             this.isSignedIn = true;
