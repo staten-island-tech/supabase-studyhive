@@ -1,25 +1,14 @@
 <template>
   <div class="login fixed top-0 left-0 w-full h-full bg-green-200 z-[999] flex flex-row">
     <div class="w-1/2 h-full bg-amber-300"></div>
+
     <div class="w-1/2 h-full bg-white flex flex-col justify-center items-center gap-y-5">
-      <ul class="flex flex-row absolute gap-15 top-0 w-1/2">
+      <ul class="flex flex-row gap-15 top-0 w-full">
         <li @click="switching" class="font-bold text-4xl cursor-pointer p-7 text-black">Sign Up</li>
         <li @click="switching" class="font-bold text-4xl cursor-pointer p-7 text-black">Sign In</li>
         <div @click="close" class="absolute right-5 text-6xl cursor-pointer p-7">X</div>
       </ul>
       <div class="signup w-full h-full bg-white flex flex-col justify-center items-center gap-y-5">
-        <button
-          @click=""
-          class="bg-white w-[70%] border rounded-lg px-6 py-3 text-black font-bold shadow flex justify-center items-center gap-4"
-        >
-          <img
-            src="https://developers.google.com/identity/images/g-logo.png"
-            alt="Google"
-            class="w-6 h-6"
-          />
-          Sign Up with Google
-        </button>
-        <div class="">-------------------- or email ---------------------</div>
         <h1 class="w-[70%]">Birthday</h1>
         <div class="flex flex-row w-[70%] gap-x-7">
           <button
@@ -44,7 +33,7 @@
             popovertarget="popover-2"
             style="anchor-name: --anchor-2"
           >
-            {{selectedDay}}
+            {{ selectedDay }}
           </button>
           <ul
             class="dropdown menu w-52 rounded-box bg-base-100 shadow-sm max-h-[30rem]"
@@ -61,7 +50,7 @@
             popovertarget="popover-3"
             style="anchor-name: --anchor-3"
           >
-            {{selectedYear}}
+            {{ selectedYear }}
           </button>
           <ul
             class="dropdown menu w-52 rounded-box bg-base-100 shadow-sm max-h-[30rem]"
@@ -190,7 +179,7 @@
           />
         </label>
         <p>By signing up, you accept StudyHive's Terms of Service and Privacy Policy</p>
-        <button 
+        <button
           @click="signup"
           class="cursor-pointer w-[15rem] h-[4rem] rounded-2xl bg-gradient-to-r from-amber-500 to-pink-400 text-white"
         >
@@ -206,39 +195,6 @@
       <div
         class="signin w-full h-full bg-white flex-col justify-center items-center gap-y-5 hidden"
       >
-        <button
-          @click=""
-          class="bg-white w-[70%] border rounded-lg px-6 py-3 text-black font-bold shadow flex justify-center items-center gap-4"
-        >
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png"
-            alt="Facebook"
-            class="w-6 h-6"
-          />
-          Sign in with Facebook
-        </button>
-        <button
-          @click=""
-          class="bg-white w-[70%] border rounded-lg px-6 py-3 text-black font-bold shadow flex justify-center items-center gap-4"
-        >
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg"
-            alt="Apple"
-            class="w-6 h-6"
-          />
-          Sign in with Apple
-        </button>
-        <button
-          @click=""
-          class="bg-white w-[70%] border rounded-lg px-6 py-3 text-black font-bold shadow flex justify-center items-center gap-4"
-        >
-          <img
-            src="https://developers.google.com/identity/images/g-logo.png"
-            alt="Google"
-            class="w-6 h-6"
-          />
-          Sign in with Google
-        </button>
         <label class="input validator w-[70%] h-1/15">
           <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <g
@@ -287,7 +243,7 @@
           />
         </label>
         <button
-        @click="signIn"
+          @click="signIn"
           class="cursor-pointer w-[15rem] h-[4rem] rounded-2xl bg-gradient-to-r from-amber-500 to-pink-400"
         >
           Sign In
@@ -298,41 +254,41 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
-import { supabase } from '@/supabase.ts';
-import { useUserStore } from '@/stores/users.ts';
-import { useRouter } from 'vue-router';
-import { gsap } from 'gsap';
+import { reactive, ref } from 'vue'
+import { supabase } from '@/supabase.ts'
+import { useUserStore } from '@/stores/users.ts'
+import { useRouter } from 'vue-router'
+import { gsap } from 'gsap'
 
-let selectedMonth = ref('Month');
-let monthDisplayed = ref('Month');
-let selectedDay = ref('Day');
-let selectedYear = ref('Year');
-let birthday = ref(selectedYear.value + '-' + selectedMonth.value + '-' + selectedDay.value);
+let selectedMonth = ref('Month')
+let monthDisplayed = ref('Month')
+let selectedDay = ref('Day')
+let selectedYear = ref('Year')
+let birthday = ref(selectedYear.value + '-' + selectedMonth.value + '-' + selectedDay.value)
 function changeselected(selected: string, x: string) {
   if (selected === 'selectedMonth') {
-    let n = 0;
-    let i = 0;
-    monthDisplayed.value = x;
+    let n = 0
+    let i = 0
+    monthDisplayed.value = x
     for (const month of months) {
       if (month === x) {
-        n = i;
+        n = i
       }
-      i++;
+      i++
     }
     if (n.toString.length < 2) {
-      selectedMonth.value = `0${n}`;
+      selectedMonth.value = `0${n}`
     } else {
-      selectedMonth.value = `${n}`;
+      selectedMonth.value = `${n}`
     }
   } else {
     if (selected === 'selectedDay') {
-      selectedDay.value = x;
+      selectedDay.value = x
     } else {
-      selectedYear.value = x;
+      selectedYear.value = x
     }
   }
-  birthday.value = selectedYear.value + '-' + selectedMonth.value + '-' + selectedDay.value;
+  birthday.value = selectedYear.value + '-' + selectedMonth.value + '-' + selectedDay.value
 }
 
 //for sign up lel
@@ -349,7 +305,7 @@ const months = [
   'September',
   'October',
   'November',
-  'December'
+  'December',
 ]
 const currentYear = new Date().getFullYear()
 const years = ['Year']
@@ -357,13 +313,13 @@ for (let year = currentYear - 129; year <= currentYear; year++) {
   years.push(year.toString())
 }
 const days = ['Day']
-let x ='';
+let x = ''
 for (let i = 1; i <= 31; i++) {
   if (i < 10) {
-    x = `0${i}`;
-    days.push(x);
+    x = `0${i}`
+    days.push(x)
   } else {
-    days.push(i.toString());
+    days.push(i.toString())
   }
 }
 function switching(event: MouseEvent) {
@@ -392,67 +348,70 @@ function switching(event: MouseEvent) {
   }
 }
 
-const router = useRouter();
+const router = useRouter()
 
 //dont use firebase use supabase instead***
-const emit = defineEmits(['close']);
+const emit = defineEmits(['close'])
 function close() {
-  emit('close');
-  router.push('/Home');
+  emit('close')
+  router.push('/Home')
 }
 
-const userStore = useUserStore();
+const userStore = useUserStore()
 
-let email = ref('');
-let fullName = reactive(['', '']);
-let password = ref('');
-let username = ref('');
+let email = ref('')
+let fullName = reactive(['', ''])
+let password = ref('')
+let username = ref('')
 
 //testing
 async function signIn() {
-  if ((email.value === '') || (password.value === '')) {
-    alert("You didn't fill in all the inputs");       //add more to it
-    return null;
+  if (email.value === '' || password.value === '') {
+    alert("You didn't fill in all the inputs") //add more to it
+    return null
   }
-  userStore.signIn(email.value, password.value);
-  close();
-  email.value = '';
-  password.value = '';
+  userStore.signIn(email.value, password.value)
+  close()
+  email.value = ''
+  password.value = ''
 }
 
 //testing
 async function signup() {
-  if ((email.value === '') || (fullName === reactive(['', ''])) || (password.value === '') || (username.value === '') || (birthday.value === 'Year-Month-Day')) {
-    alert("You didn't fill in all the inputs");     //add more to it
-    return null;
+  if (
+    email.value === '' ||
+    fullName === reactive(['', '']) ||
+    password.value === '' ||
+    username.value === '' ||
+    birthday.value === 'Year-Month-Day'
+  ) {
+    alert("You didn't fill in all the inputs") //add more to it
+    return null
   }
   //check username - if it's unique or not
-  let usernameExists = false;
+  let usernameExists = false
   async function checkUsername(username: string) {
-    const { data, error } = await supabase
-      .from('profiles')
-      .select()
-      .eq('username', username);
-    if ((data === null) || (data.length === 0)) {
-      return false;
+    const { data, error } = await supabase.from('profiles').select().eq('username', username)
+    if (data === null || data.length === 0) {
+      return false
     } else {
-      return true;
+      return true
     }
   }
-  usernameExists = await checkUsername(username.value);
+  usernameExists = await checkUsername(username.value)
   if (usernameExists === true) {
-    alert("Choose a different username - this one is already in use.")    //add more to it
-    return null;
+    alert('Choose a different username - this one is already in use.') //add more to it
+    return null
   }
-  userStore.signUp(email.value, password.value, username.value, fullName, birthday.value);
-  email.value = '';
-  password.value = '';
-  username.value = '';
-  fullName = ['', ''];
-  selectedYear.value = 'Year';
-  selectedMonth.value = 'Month';
-  selectedDay.value = 'Day';
-  close();
+  userStore.signUp(email.value, password.value, username.value, fullName, birthday.value)
+  email.value = ''
+  password.value = ''
+  username.value = ''
+  fullName = ['', '']
+  selectedYear.value = 'Year'
+  selectedMonth.value = 'Month'
+  selectedDay.value = 'Day'
+  close()
 }
 </script>
 <style scoped></style>
