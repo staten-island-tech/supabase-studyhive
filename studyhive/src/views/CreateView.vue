@@ -13,7 +13,7 @@
           placeholder="Add a description..."
         />
       </div>
-      <CreateCard v-for="numCard in numCards" />
+      <CreateCard v-for="num in numCards" :num="num" />
       <div
         @click="addAnotherCard"
         class="w-full rounded-2xl mt-7 bg-white h-30 flex justify-center items-center text-[100%] font-bold underline tracking-widest cursor-pointer decoration-amber-400 underline-offset-6 decoration-4 transition-all hover:decoration-[#3CCFCF] hover:text-[#3CCFCF]"

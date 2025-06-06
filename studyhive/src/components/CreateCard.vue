@@ -5,7 +5,7 @@
   />
   <div class="bg-white flex flex-col rounded-2xl mb-4">
     <div class="mx-10 my-4 flex flex-row justify-between items-center">
-      <h1 class="font-bold text-gray-400 text-[110%]">1</h1>
+      <h1 class="font-bold text-gray-400 text-[110%]">{{ num }}</h1>
       <i
         @click=""
         class="fa-solid fa-trash-can p-2 rounded-2xl hover:bg-amber-300 cursor-pointer transition-colors"
@@ -35,6 +35,12 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+defineProps({
+  num: {
+    type: Number,
+  },
+})
+</script>
 
 <style scoped></style>
