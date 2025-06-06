@@ -37,17 +37,21 @@
   import { useUserStore } from '@/stores/users.ts';
   import CreateCard from '@/components/CreateCard.vue';
   import { ref } from 'vue';
-  let numCards = ref(1);
+  const numCards = ref(1);
   function addAnotherCard() {
     numCards.value++;
   }
 
-  let title = ref('');
-  let description = ref('');
+  const title = ref('');
+  const description = ref('');
 
   const userStore = useUserStore();
   async function createQuiz(redirect:boolean) {
-    if (title.value === '')
+    if (title.value === '') {
+      alert("You didn't fill in the title");
+      return null;
+    }
+    
   }
 </script>
 
