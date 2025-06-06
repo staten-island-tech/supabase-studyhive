@@ -6,11 +6,13 @@
           type="text"
           class="font-medium w-full h-12 pl-4 rounded-[10px] bg-white focus:ring-2 focus:ring-amber-400 focus:outline-none"
           placeholder='Enter a title, like "ELA STUFF"'
+          v-model="title"
         />
         <input
           type="text"
           class="font-medium w-full h-16 pl-4 pb-3 bg-white rounded-[10px] focus:shadow-[0_2px_0_0_rgba(0,0,0,1)] focus:outline-none"
           placeholder="Add a description..."
+          v-model="description"
         />
       </div>
       <CreateCard v-for="numCard in numCards" />
@@ -23,7 +25,7 @@
       <div class="w-full flex flex-row justify-end gap-3 mt-3">
         <button @click="createQuiz(false)" class="w-1/9 rounded-[100rem] outline-1 aspect-[3]">Create</button>
         <button @click="createQuiz(true)" class="w-1/5 font-bold rounded-[100rem] bg-amber-400 outline-1 aspect-[3]">
-          Create and practice
+          Create and Practice
         </button>
       </div>
     </div>
@@ -33,13 +35,19 @@
 <script setup lang="ts">
   import { supabase } from '@/supabase.ts';
   import { useUserStore } from '@/stores/users.ts';
+  import CreateCard from '@/components/CreateCard.vue';
+  import { ref } from 'vue';
+  let numCards = ref(1);
+  function addAnotherCard() {
+    numCards.value++;
+  }
+
+  let title = ref('');
+  let description = ref('');
+
   const userStore = useUserStore();
   async function createQuiz(redirect:boolean) {
-    const { data, error } = await supabase
-      .from('profiles')
-      .upsert({'username': userStore.userInfo?.username, 'created_quizzes': []})
-      
-      
+    if (title.value === '')
   }
 </script>
 
