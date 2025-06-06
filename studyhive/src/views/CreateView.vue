@@ -23,8 +23,13 @@
         ADD CARD
       </div>
       <div class="w-full flex flex-row justify-end gap-3 mt-3">
-        <button @click="createQuiz(false)" class="w-1/9 rounded-[100rem] outline-1 aspect-[3]">Create</button>
-        <button @click="createQuiz(true)" class="w-1/5 font-bold rounded-[100rem] bg-amber-400 outline-1 aspect-[3]">
+        <button @click="createQuiz(false)" class="w-1/9 rounded-[100rem] outline-1 aspect-[3]">
+          Create
+        </button>
+        <button
+          @click="createQuiz(true)"
+          class="w-1/5 font-bold rounded-[100rem] bg-amber-400 outline-1 aspect-[3]"
+        >
           Create and Practice
         </button>
       </div>
@@ -33,22 +38,23 @@
 </template>
 
 <script setup lang="ts">
-  import { supabase } from '@/supabase.ts';
-  import { useUserStore } from '@/stores/users.ts';
-  import CreateCard from '@/components/CreateCard.vue';
-  import { ref } from 'vue';
-  let numCards = ref(1);
-  function addAnotherCard() {
-    numCards.value++;
-  }
+import { supabase } from '@/supabase.ts'
+import { useUserStore } from '@/stores/users.ts'
+import CreateCard from '@/components/CreateCard.vue'
+import { ref } from 'vue'
+let numCards = ref(1)
+function addAnotherCard() {
+  numCards.value++
+}
 
-  let title = ref('');
-  let description = ref('');
+let title = ref('')
+let description = ref('')
 
-  const userStore = useUserStore();
-  async function createQuiz(redirect:boolean) {
-    if (title.value === '')
+const userStore = useUserStore()
+async function createQuiz(redirect: boolean) {
+  if (title.value === '') {
   }
+}
 </script>
 
 <style scoped></style>
