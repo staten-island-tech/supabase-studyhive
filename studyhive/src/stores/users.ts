@@ -26,17 +26,6 @@ export const useUserStore = defineStore('user', {
                 alert("ERROR");       //add more to it
                 return null;
             }
-            async function getData() {
-                const { data, error } = await supabase
-                    .from('profiles')
-                    .select('*')       // to select all, do: .select       to select some do: .select(column title)
-                if (error) {
-                    alert("ERROR");       //add more to it
-                    return 'null';
-                }
-                console.log(data);
-                return data;
-            }
             console.log(data);
             const user = {
                 email: email,
