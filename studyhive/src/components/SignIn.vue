@@ -370,10 +370,12 @@ async function signIn() {
     return null
   }
   userStore.signIn(email.value, password.value);
-  close();
-  email.value = '';
-  password.value = '';
-  router.push('/Home');
+  if (userStore.isSignedIn === true){
+    close();
+    email.value = '';
+    password.value = '';
+    router.push('/Home');
+  }
 }
 
 //testing
@@ -404,15 +406,17 @@ async function signup() {
     return null
   }
   userStore.signUp(email.value, password.value, username.value, fullName, birthday.value);
-  email.value = '';
-  password.value = '';
-  username.value = '';
-  fullName = ['', ''];
-  selectedYear.value = 'Year';
-  selectedMonth.value = 'Month';
-  selectedDay.value = 'Day';
-  close();
-  router.push('/Home');
+  if (userStore.isSignedIn === true) {
+    email.value = '';
+    password.value = '';
+    username.value = '';
+    fullName = ['', ''];
+    selectedYear.value = 'Year';
+    selectedMonth.value = 'Month';
+    selectedDay.value = 'Day';
+    close();
+    router.push('/Home');
+  }
 }
 </script>
 <style scoped></style>

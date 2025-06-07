@@ -35,7 +35,6 @@ export const useUserStore = defineStore('user', {
             }
             this.isSignedIn = true;
             this.userInfo = user;
-            return 'signed in';
         },
         async signUp(email: string, password: string, username: string, fullName: any, birthday: string) {
             const { data, error } = await supabase.auth.signUp({
@@ -69,7 +68,6 @@ export const useUserStore = defineStore('user', {
             }
             this.isSignedIn = true;
             this.userInfo = user;
-            return 'created';
         },
         async signOut() {
             this.isSignedIn = false;

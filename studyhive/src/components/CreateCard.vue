@@ -19,6 +19,8 @@
           placeholder="Enter term"
           rows="1"
           oninput="this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px';"
+          v-model="term"
+          @input="handleInput"
         ></textarea>
         <h3 class="mt-2 text-gray-400 text-[80%] font-medium">TERM</h3>
       </div>
@@ -28,6 +30,8 @@
           placeholder="Enter definition"
           rows="1"
           oninput="this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px';"
+          v-model="definition"
+          @input="handleInput"
         ></textarea>
         <h3 class="mt-2 text-gray-400 text-[80%] font-medium">DEFINITION</h3>
       </div>
@@ -36,11 +40,24 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 defineProps({
   num: {
     type: Number,
   },
 })
+
+const emit = defineEmits<{    //defineEmits declares the updateCard event
+  (e: 'updateCard', data: { term: string; definition: string }): void;
+}>();
+
+const term = ref('');
+const definition = ref('');
+
+function handleInput() {      //handleInput emits the updateCard event with the current values of term and definition whenever the user types in the input fields.
+  emit('updateCard', { term: term.value, definition: definition.value });
+}
+
 </script>
 
 <style scoped></style>
