@@ -26,7 +26,6 @@ export const useUserStore = defineStore('user', {
                 alert("ERROR");       //add more to it
                 return null;
             }
-            console.log(data);
             const user = {
                 email: email,
                 username: data.user.user_metadata.username,
@@ -34,25 +33,24 @@ export const useUserStore = defineStore('user', {
                 pfp: data.user.user_metadata.avatar_url,
                 birthday: data.user.user_metadata.birthday
             }
-            console.log(user);
             this.isSignedIn = true;
             this.userInfo = user;
-
+            return 'signed in';
         },
         async signUp(email: string, password: string, username: string, fullName: any, birthday: string) {
-            const { data, error } = await supabase.auth.signUp(
-                {
-                    email: email,
-                    password: password,
-                    options: {
-                        data: {
-                            username: username,
-                            full_name: fullName[0] + ' ' + fullName[1],
-                            birthday: birthday,
-                            avatar_url: 'https://i.pinimg.com/736x/53/57/61/53576100ffec1b41db0c013c46708cad.jpg'
-                        }
+            const { data, error } = await supabase.auth.signUp({
+                email: email,
+                password: password,
+                options: {
+                    data: {
+                        username: username,
+                        full_name: fullName[0] + ' ' + fullName[1],
+                        birthday: birthday,
+                        avatar_url: 'https://i.pinimg.com/736x/53/57/61/53576100ffec1b41db0c013c46708cad.jpg'
                     }
-                });
+                }
+            });
+
             if (error) {      //change later - ADD stuff to show it instead of just on console!!!!
                 if (error.message.includes('user already registered')) {
                     alert('Email is already in use.');
@@ -62,7 +60,6 @@ export const useUserStore = defineStore('user', {
                     return null;
                 }
             }
-            console.log(data);
             const user = {
                 email: email,
                 username: username,
@@ -70,9 +67,9 @@ export const useUserStore = defineStore('user', {
                 pfp: 'https://i.pinimg.com/736x/53/57/61/53576100ffec1b41db0c013c46708cad.jpg',
                 birthday: birthday
             }
-            console.log(user);
             this.isSignedIn = true;
             this.userInfo = user;
+            return 'created';
         },
         async signOut() {
             this.isSignedIn = false;

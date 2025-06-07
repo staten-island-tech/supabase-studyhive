@@ -369,10 +369,7 @@ async function signIn() {
     alert("You didn't fill in all the inputs") //add more to it
     return null
   }
-  const result = userStore.signIn(email.value, password.value);
-  if (result === null) {
-    return null;
-  }
+  userStore.signIn(email.value, password.value);
   close();
   email.value = '';
   password.value = '';
@@ -406,10 +403,7 @@ async function signup() {
     alert('Choose a different username - this one is already in use.') //add more to it
     return null
   }
-  const result = userStore.signUp(email.value, password.value, username.value, fullName, birthday.value);
-  if (result === null) {
-    return null;
-  }
+  userStore.signUp(email.value, password.value, username.value, fullName, birthday.value);
   email.value = '';
   password.value = '';
   username.value = '';

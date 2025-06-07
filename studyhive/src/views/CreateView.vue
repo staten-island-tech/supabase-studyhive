@@ -56,7 +56,8 @@
       alert("You didn't fill in the title");
       return null;
     }
-    const { data,error } = supabase.from('quizzes').insert({quiz_title: title.value, creator: userStore.userInfo.username, terms: numCards.value, description: description.value}).select().single();
+    console.log(userStore.userInfo.username);
+    const { data,error } = await supabase.from('quizzes').insert({quiz_title: title.value, creator: userStore.userInfo.username, terms_number: numCards.value, description: description.value}).select().single();
     if (error) {
       alert(error);
       return null;
@@ -67,7 +68,6 @@
     }
     return 'created';
   }
-}
 </script>
 
 <style scoped></style>
