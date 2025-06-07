@@ -15,9 +15,9 @@
           v-model="description"
         />
       </div>
-      <CreateCard v-for="num in numCards" :num="num" />
+      <CreateCard v-for="card in cards" :id="card.id" :key="card.id" :num="card.num" @remove="handleRemove" />
       <div
-        @click="addAnotherCard"
+        @click="addCard"
         class="w-full rounded-2xl mt-7 bg-white h-30 flex justify-center items-center text-[100%] font-bold underline tracking-widest cursor-pointer decoration-amber-400 underline-offset-6 decoration-4 transition-all hover:decoration-[#3CCFCF] hover:text-[#3CCFCF]"
       >
         ADD CARD
@@ -42,10 +42,20 @@ import { supabase } from '@/supabase.ts'
 import { useUserStore } from '@/stores/users.ts'
 import CreateCard from '@/components/CreateCard.vue'
 import { ref } from 'vue'
-let numCards = ref(1)
-function addAnotherCard() {
-  numCards.value++
+let cards = ref([{id:1, num: 1 }])
+let nextId = ref(2)
+function addCard() {
+  cards.value.push({
+    id: nextId.value++,           // unique identifier
+    num: cards.value.length + 1,  // display number
+  })
 }
+function handleRemove(num: number) {
+  cards.value = cards.value
+    .filter(card => card.num !== num)
+    .map((card, index) => ({ ...card, num: index + 1 }))
+}
+
 
 let title = ref('')
 let description = ref('')
