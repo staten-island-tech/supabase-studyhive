@@ -56,7 +56,6 @@
   //handleCardData updates cardsData with the emitted data from each card.
   function handleCardData(num: number, data: { term: string; definition: string }) {
     cardsData.value[num] = data;
-    console.log(cardsData.value);
   }
 
   const title = ref('');
@@ -68,14 +67,16 @@
       alert("You didn't fill in the title");
       return null;
     }
-    const { data, error } = await supabase.from('quizzes').insert({quiz_title: title.value, creator: userStore.userInfo.username, terms_number: numCards.value, description: description.value}).select().single();
+    const username = userStore.userInfo?.username;
+    const { data, error } = await supabase.from('quizzes').insert({quiz_title: title.value, creator: username, terms_number: numCards.value, description: description.value}).select().single();
     if (error) {
       alert(error);
       return null;
     }
+    console.log(data);
     createTerms(data.id);
     if (redirect) {
-      //add redirected view;
+      //add redirected view -> play quiz;
     } else {
       Object.assign(title.value, '');
       Object.assign(cardsData.value, {});
@@ -85,12 +86,13 @@
   }
 
   async function createTerms(quiz_id: string) {
-    for (let i = 0; i < numCards.value; i++) {
+    for (let i = 1; i <= numCards.value; i++) {
       const { data, error } = await supabase.from('terms').insert({quiz_id: quiz_id, term: cardsData.value[i].term, definition: cardsData.value[i].definition}).select();
       if (error) {
         alert(error);
         return null;
       }
+      console.log(data);
       console.log(`${i} terms saved`);
     }
     return 'terms saved completely';
