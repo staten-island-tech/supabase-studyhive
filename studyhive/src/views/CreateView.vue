@@ -51,7 +51,16 @@
       alert("You didn't fill in the title");
       return null;
     }
-    
+    const { data,error } = supabase.from('quizzes').insert({quiz_title: title.value, creator: userStore.userInfo.username, terms: numCards.value, description: description.value}).select().single();
+    if (error) {
+      alert(error);
+      return null;
+    }
+    console.log(data);
+    if (redirect) {
+      //add redirected view;
+    }
+    return 'created';
   }
 </script>
 
