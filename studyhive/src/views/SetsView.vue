@@ -1,6 +1,6 @@
 <template>
   <div class="pt-[10rem] bg-[#F6F7FB] py-10 flex flex-row justify-around">
-    <StudyCard v-if="studySets" v-for="studySet in studySets" :studySet="studySet" :key="studySet" />
+    <StudyCard v-for="studySet of studySets" :studySet="studySet" :key="studySet" />
     <RouterView />
   </div>
 </template>
