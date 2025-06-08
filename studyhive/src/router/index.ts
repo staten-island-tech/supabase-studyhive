@@ -2,9 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import SetsView from '@/views/SetsView.vue'
 import CreateView from '@/views/CreateView.vue'
-import QuizDetails from '../components/QuizDetails.vue'
 import { useUserStore } from '@/stores/users.ts'
 import { showSignIn } from '@/var.ts'
+import StudySet from '@/components/StudySet.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,7 +22,7 @@ const router = createRouter({
       children: [
         {
           path: 'studyset/:studySetid',
-          component: QuizDetails,
+          component: StudySet,
           props: true
         }
       ]
