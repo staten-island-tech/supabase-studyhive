@@ -78,8 +78,8 @@
     if (redirect) {
       //add redirected view -> play quiz;
     } else {
-      Object.assign(title.value, '');
-      Object.assign(cardsData.value, {});
+      title.value = '';
+      cardsData.value = {};
       router.push('/Home');
     }
     return 'created';
