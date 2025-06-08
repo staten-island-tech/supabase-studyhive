@@ -5,6 +5,8 @@ import CreateView from '@/views/CreateView.vue'
 import { useUserStore } from '@/stores/users.ts'
 import { showSignIn } from '@/var.ts'
 import StudySet from '@/components/StudySet.vue'
+import QuizDetails from '@/components/QuizDetails.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,19 +19,24 @@ const router = createRouter({
     },
     {
       path: '/StudySets',
-      name: 'Study Sets',
+      name: 'StudySets',
       component: SetsView,
       children: [
         {
-          path: 'studyset/:studySetid',
-          component: StudySet,
+          path: 'details/:studySetid',
+          name: 'StudySetDetails',
+          component: QuizDetails,
           props: true
+        },
+        {
+          path: '',
+          component: StudySet,
         }
       ]
     },
     {
       path: '/Create',
-      name: 'Create Sets',
+      name: 'CreateSets',
       component: CreateView,
       meta: { requiresAuth: true }
     },
