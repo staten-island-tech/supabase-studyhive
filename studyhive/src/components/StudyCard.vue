@@ -1,6 +1,6 @@
 <template>
   <div class="w-[30%] p-[2px] rounded-3xl bg-gradient-to-r from-amber-500 to-pink-400">
-    <div class="bg-base-100 rounded-3xl">
+    <div class="bg-base-100 rounded-3xl" @click="goToSet(studySet.id)">
       <div class="p-5 flex flex-col gap-3">
         <h2 class="card-title font-bold">{{studySet.quiz_title}}</h2>
         <div class="flex mb-10">
@@ -18,6 +18,7 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
 
 defineProps({
   studySet: {
@@ -25,6 +26,11 @@ defineProps({
     required: true
   }
 });
+
+const router = useRouter();
+function goToSet(id) {
+    router.push(`/StudySets/details/${id}`);
+}
 </script>
 
 <style scoped></style>

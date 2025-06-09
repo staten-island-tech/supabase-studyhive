@@ -23,13 +23,14 @@ const router = createRouter({
       component: SetsView,
       children: [
         {
-          path: 'details/:studySetid',
+          path: 'details/:studySetId',
           name: 'StudySetDetails',
           component: QuizDetails,
           props: true
         },
         {
           path: '',
+          name: 'StudySetsOverview',
           component: StudySet,
         }
       ]

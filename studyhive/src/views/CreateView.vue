@@ -74,7 +74,7 @@
       return null;
     }
     console.log(data);
-    createTerms(data.id);
+    await createTerms(data.id);
     if (redirect) {
       //add redirected view -> play quiz;
     } else {

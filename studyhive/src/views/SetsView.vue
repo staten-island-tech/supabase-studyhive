@@ -6,6 +6,7 @@
 
 <script setup lang="ts">
 import { RouterView } from 'vue-router';
+import StudySet from '../components/StudySet.vue';
 </script>
 
 <style scoped></style>
