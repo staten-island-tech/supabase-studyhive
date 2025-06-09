@@ -28,17 +28,31 @@ const props = defineProps({
     }
 })
 
+const userStore = useUserStore();
+
 const favorited = ref(false);
 
 async function favoritingStudySet(action: boolean) {
+		if (!userStore.isSignedIn) {
+				alert('You need to sign in to be able to favorite a study set');
+				return null;
     if (action) {
-        const { data, error } = await supabase.from('favorited')
+        const { data, error } = await supabase.from('favorited').insert().select();
+				if (error) {
+					console.log(error);
+					return null;
+				}
+				console.log('favorited');
     } else if (!action) {
-
+				const { data, error } = await supabase.from('favorited').
+				if (error) {
+					console.log(error)
+					return null;
+				}
+				console.log('unfavorited');
     }
 }
 
-const userStore = useUserStore();
 async function checkFavorited() {
     if (!userStore.isSignedIn) {
         return null;
