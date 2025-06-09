@@ -6,6 +6,7 @@ import { useUserStore } from '@/stores/users.ts'
 import { showSignIn } from '@/var.ts'
 import StudySet from '@/components/StudySet.vue'
 import QuizDetails from '@/components/QuizDetails.vue'
+import PlayView from '@/views/PlayView.vue'
 
 
 const router = createRouter({
@@ -34,6 +35,12 @@ const router = createRouter({
           component: StudySet,
         }
       ]
+    },
+    {
+      path: '/Play/:studySetId',
+      name: 'Play',
+      component: PlayView,
+      props: true
     },
     {
       path: '/Create',

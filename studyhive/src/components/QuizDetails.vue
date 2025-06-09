@@ -20,6 +20,7 @@
 import { supabase } from '@/supabase.ts';
 import { onBeforeMount, ref } from 'vue';
 import { useUserStore } from '@/stores/users.ts';
+import { useRouter } from 'vue-router';
 
 const props = defineProps({
     studySetId: {
@@ -29,11 +30,11 @@ const props = defineProps({
 })
 
 const userStore = useUserStore();
-
+const router = useRouter();
 const favorited = ref(false);
 
 async function goToPlay() {
-    
+    router.push(`/Play/${props.studySetId}`);
 }
 
 async function favoritingStudySet(action: boolean) {
