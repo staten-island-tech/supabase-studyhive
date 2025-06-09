@@ -5,9 +5,9 @@
         <h3>Creator: {{ quizInfo.creator }}</h3>
         <br>
         <p>Terms: {{ quizInfo.terms_number }}</p>
-        <button @click="goToPlay">PLAY</button>
-        <button v-if="!favorited" @click="favoritingStudySet(true)">FAVORITE</button>
-        <button v-if="favorited" @click="favoritingStudySet(false)">UNFAVORITE</button>
+        <button class="btn" @click="goToPlay">PLAY</button>
+        <button class="btn" v-if="!favorited" @click="favoritingStudySet(true)">FAVORITE</button>
+        <button class="btn" v-if="favorited" @click="favoritingStudySet(false)">UNFAVORITE</button>
     </div>
     <div class="bg-white p-10 rounded-2xl" v-for="term of terms" :term="term" :key="term.id">
         <h4>Term: {{ term.term }}</h4>
@@ -18,9 +18,9 @@
 
 <script setup lang="ts">
 import { supabase } from '@/supabase.ts';
-import { onBeforeMount, ref } from 'vue';
+import { onBeforeMount, ref, watch } from 'vue';
 import { useUserStore } from '@/stores/users.ts';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 
 const props = defineProps({
     studySetId: {
@@ -76,7 +76,7 @@ async function checkFavorited() {
     }
 }
 
-let quizInfo = ref([]);
+const quizInfo = ref([]);
 async function fetchQuiz() {
     const { data, error } = await supabase.from('quizzes').select('*').eq('id', props.studySetId).single();
     if (error) {
@@ -87,7 +87,7 @@ async function fetchQuiz() {
     await fetchTerms();
 }
 
-let terms = ref([]);
+const terms = ref([]);
 async function fetchTerms() {
     const { data, error } = await supabase.from('terms').select('*').eq('quiz_id', props.studySetId);
     if (error) {
@@ -99,9 +99,18 @@ async function fetchTerms() {
 
 onBeforeMount(async () => {
     await fetchQuiz();
-    await fetchTerms();
     await checkFavorited();
 })
+
+const route = useRoute();
+watch(
+  () => route.fullPath, // watch the route change
+  async () => {
+    await fetchQuiz();
+    await checkFavorited();
+  },
+  { immediate: true } // run on initial mount
+)
 
 </script>
 

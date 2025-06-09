@@ -4,9 +4,9 @@
 
 <script setup lang="ts">
 import StudyCard from './StudyCard.vue';
-import { RouterView } from 'vue-router';
 import { supabase } from '@/supabase.ts';
-import { onBeforeMount, ref } from 'vue';
+import { onBeforeMount, ref, watch } from 'vue';
+import { useRoute } from 'vue-router';
 
 let studySets = ref([]);
 async function fetchData() {
@@ -21,6 +21,15 @@ async function fetchData() {
 onBeforeMount(async () => {
   await fetchData();
 })
+
+const route = useRoute();
+watch(
+  () => route.fullPath, // watch the route change
+  async () => {
+    await fetchData();
+  },
+  { immediate: true } // run on initial mount
+)
 
 </script>
 
