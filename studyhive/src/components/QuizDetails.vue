@@ -32,24 +32,29 @@ const userStore = useUserStore();
 
 const favorited = ref(false);
 
+async function goToPlay() {
+    
+}
+
 async function favoritingStudySet(action: boolean) {
-		if (!userStore.isSignedIn) {
+	if (!userStore.isSignedIn) {
 				alert('You need to sign in to be able to favorite a study set');
 				return null;
+    }
     if (action) {
-        const { data, error } = await supabase.from('favorited').insert().select();
+        const { data, error } = await supabase.from('favorited').insert({quiz_id: props.studySetId, username: userStore.userInfo?.username}).select();
 				if (error) {
 					console.log(error);
 					return null;
 				}
-				console.log('favorited');
+                favorited.value = true;
     } else if (!action) {
-				const { data, error } = await supabase.from('favorited').
+				const { data, error } = await supabase.from('favorited').delete().eq('quiz_id', props.studySetId).eq('username', userStore.userInfo?.username);
 				if (error) {
-					console.log(error)
+					console.log(error);
 					return null;
 				}
-				console.log('unfavorited');
+                favorited.value = false;
     }
 }
 

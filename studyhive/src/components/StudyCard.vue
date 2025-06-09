@@ -9,7 +9,7 @@
           </p>
         </div>
         <div class="user flex gap-2 items-center">
-          <img src="/img/image.png" alt="" class="w-[7%] rounded-3xl" />
+          <img :src="pfp" alt="" class="w-[7%] rounded-3xl" />
           <p class="user">{{studySet.creator}}</p>
         </div>
       </div>
@@ -18,19 +18,38 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { supabase } from '@/supabase.ts';
 
-defineProps({
+onMounted(async () => {
+  await getPfp();
+})
+
+const props = defineProps({
   studySet: {
     type: Object,
     required: true
   }
 });
 
+const pfp = ref('');
+
+async function getPfp() {
+  const { data, error } = await supabase.from('profiles').select('avatar_url').eq("username", props.studySet.creator).single();
+  if (error) {
+    console.log (error);
+    return null;
+  }
+  console.log(data);
+  pfp.value = data.avatar_url;
+}
+
 const router = useRouter();
-function goToSet(id) {
+function goToSet(id: any) {
     router.push(`/StudySets/details/${id}`);
 }
+
 </script>
 
 <style scoped></style>
