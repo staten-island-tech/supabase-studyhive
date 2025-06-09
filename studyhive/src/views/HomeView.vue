@@ -9,17 +9,19 @@
 
       <img src="/img/image.png" alt="" class="w-10 aspect-square" />
     </div>
-    <div class="flex w-[60%]">
-      <h1>Your Sets</h1>
-      <div class="">
-        <YourSetsCard/>
+    <div class="flex flex-col w-[60%]">
+      <h1 class="font-bold text-3xl mb-5">Your Sets</h1>
+      <div class="w-full flex gap-x-2">
+        <YourSetsCard />
+        <YourSetsCard />
+        <YourSetsCard />
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import YourSetsCard from '@/components/YourSetsCard.vue';
+import YourSetsCard from '@/components/YourSetsCard.vue'
 function checklogin(userlogged: boolean) {
   if (userlogged === false) {
     //direct to login page
