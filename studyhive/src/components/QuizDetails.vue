@@ -1,10 +1,13 @@
 <template>
     <div class="bg-white p-10 rounded-2xl">
         <h3>Title: {{ quizInfo.quiz_title }}</h3>
-        <h4>description: {{ quizInfo.description }}</h4>
-        <h3>creator: {{ quizInfo.creator }}</h3>
+        <h4>Description: {{ quizInfo.description }}</h4>
+        <h3>Creator: {{ quizInfo.creator }}</h3>
         <br>
         <p>Terms: {{ quizInfo.terms_number }}</p>
+        <button @click="goToPlay">PLAY</button>
+        <button v-if="!favorited" @click="favoritingStudySet(true)">FAVORITE</button>
+        <button v-if="favorited" @click="favoritingStudySet(false)">UNFAVORITE</button>
     </div>
     <div class="bg-white p-10 rounded-2xl" v-for="term of terms" :term="term" :key="term.id">
         <h4>Term: {{ term.term }}</h4>
@@ -16,6 +19,7 @@
 <script setup lang="ts">
 import { supabase } from '@/supabase.ts';
 import { onBeforeMount, ref } from 'vue';
+import { useUserStore } from '@/stores/users.ts';
 
 const props = defineProps({
     studySetId: {
@@ -23,6 +27,34 @@ const props = defineProps({
         required: true
     }
 })
+
+const favorited = ref(false);
+
+async function favoritingStudySet(action: boolean) {
+    if (action) {
+        const { data, error } = await supabase.from('favorited')
+    } else if (!action) {
+
+    }
+}
+
+const userStore = useUserStore();
+async function checkFavorited() {
+    if (!userStore.isSignedIn) {
+        return null;
+    }
+    const { data, error } = await supabase.from('favorited').select('username').eq('quiz_id', props.studySetId);
+    if (error) {
+        console.log(error);
+        return null;
+    }
+    for (const user of data) {
+        if (user.username === userStore.userInfo?.username) {
+            favorited.value = true;
+            return null;
+        }
+    }
+}
 
 let quizInfo = ref([]);
 async function fetchQuiz() {
@@ -48,6 +80,7 @@ async function fetchTerms() {
 onBeforeMount(async () => {
     await fetchQuiz();
     await fetchTerms();
+    await checkFavorited();
 })
 
 </script>
