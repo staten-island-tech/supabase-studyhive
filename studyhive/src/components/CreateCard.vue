@@ -7,7 +7,7 @@
     <div class="mx-10 my-4 flex flex-row justify-between items-center">
       <h1 class="font-bold text-gray-400 text-[110%]">{{ num }}</h1>
       <i
-        @click=""
+        @click="removeCard"
         class="fa-solid fa-trash-can p-2 rounded-2xl hover:bg-amber-300 cursor-pointer transition-colors"
       ></i>
     </div>
@@ -48,7 +48,8 @@ defineProps({
 })
 
 const emit = defineEmits<{    //defineEmits declares the updateCard event
-  (e: 'updateCard', data: { term: string; definition: string }): void;
+  (e: 'updateCard', data: { term: string; definition: string }): void,
+  (e: 'remove'): void
 }>();
 
 const term = ref('');
@@ -56,6 +57,10 @@ const definition = ref('');
 
 function handleInput() {      //handleInput emits the updateCard event with the current values of term and definition whenever the user types in the input fields.
   emit('updateCard', { term: term.value, definition: definition.value });
+}
+
+function removeCard() {
+  emit('remove');
 }
 
 </script>

@@ -15,7 +15,7 @@
           v-model="description"
         />
       </div>
-      <CreateCard v-for="num in numCards" :num="num" @updateCard="handleCardData(num, $event)" />
+      <CreateCard v-for="(card, index) in cards" :num="index + 1" :key="card.id" @updateCard="handleCardData(card.id, $event)" @remove="removeCard(index)" />
       <div
         @click="addAnotherCard"
         class="w-full rounded-2xl mt-7 bg-white h-30 flex justify-center items-center text-[100%] font-bold underline tracking-widest cursor-pointer decoration-amber-400 underline-offset-6 decoration-4 transition-all hover:decoration-[#3CCFCF] hover:text-[#3CCFCF]"
@@ -46,16 +46,25 @@
   const numCards = ref(1);
   const router = useRouter();
 
+  let nextCardId = 1
+  const cards = ref([{ id: nextCardId++ }]) // first card
+
   function addAnotherCard() {
     numCards.value++;
+    cards.value.push({ id: nextCardId++ });
+  }
+
+  function removeCard(index: number) {
+    numCards.value--;
+    cards.value.splice(index, 1);
   }
 
   //cardsData is a reactive object that stores the data from each card, indexed by the card number.
-  const cardsData = ref<{ [key: number]: { term: string; definition: string } }>({});
+  const cardsData = ref<{ [id: number]: { term: string; definition: string } }>({});
 
   //handleCardData updates cardsData with the emitted data from each card.
-  function handleCardData(num: number, data: { term: string; definition: string }) {
-    cardsData.value[num] = data;
+  function handleCardData(id: number, data: { term: string; definition: string }) {
+    cardsData.value[id] = data;
   }
 
   const title = ref('');
@@ -96,14 +105,16 @@
   }
 
   async function createTerms(quiz_id: string) {
-    for (let i = 1; i <= numCards.value; i++) {
-      const { data, error } = await supabase.from('terms').insert({quiz_id: quiz_id, term: cardsData.value[i].term, definition: cardsData.value[i].definition}).select();
+    for (const card of cards.value) {
+      const dataEntry = cardsData.value[card.id];
+      if (!dataEntry) continue;
+
+      const { data, error } = await supabase.from('terms').insert({quiz_id: quiz_id, term: dataEntry.term, definition: dataEntry.definition}).select();
       if (error) {
         alert(error);
         return null;
       }
       console.log(data);
-      console.log(`${i} terms saved`);
     }
     return 'terms saved completely';
   }
