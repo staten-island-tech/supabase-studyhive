@@ -1,5 +1,7 @@
 <template>
+  <div class="pt-[10rem] bg-[#F6F7FB] py-10 flex flex-row justify-around">
     <StudyCard v-for="studySet of studySets" :studySet="studySet" :key="studySet.id" />
+  </div>
 </template>
 
 <script setup lang="ts">

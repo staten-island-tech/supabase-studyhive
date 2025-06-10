@@ -1,18 +1,22 @@
 <template>
-    <div class="bg-white p-10 rounded-2xl">
-        <h3>Title: {{ quizInfo.quiz_title }}</h3>
-        <h4>Description: {{ quizInfo.description }}</h4>
-        <h3>Creator: {{ quizInfo.creator }}</h3>
-        <br>
-        <p>Terms: {{ quizInfo.terms_number }}</p>
-        <button class="btn" @click="goToPlay">PLAY</button>
-        <button class="btn" v-if="!favorited" @click="favoritingStudySet(true)">FAVORITE</button>
-        <button class="btn" v-if="favorited" @click="favoritingStudySet(false)">UNFAVORITE</button>
+    <div class="pt-[10rem] bg-[#F6F7FB] py-10 flex flex-row justify-around">
+        <div class="bg-white p-10 rounded-2xl h-[90%] w-[95%] text-black">
+            <h3>Title: {{ quizInfo.quiz_title }}</h3>
+            <h4>Description: {{ quizInfo.description }}</h4>
+            <h3>Creator: {{ quizInfo.creator }}</h3>
+            <br>
+            <p>Terms: {{ quizInfo.terms_number }}</p>
+            <button class="btn mr-5 mt-5" @click="goToPlay">PLAY</button>
+            <button class="btn mt-5" v-if="!favorited" @click="favoritingStudySet(true)">FAVORITE</button>
+            <button class="btn mt-5" v-if="favorited" @click="favoritingStudySet(false)">UNFAVORITE</button>
+        </div>
     </div>
-    <div class="bg-white p-10 rounded-2xl" v-for="term of terms" :term="term" :key="term.id">
-        <h4>Term: {{ term.term }}</h4>
-        <br>
-        <p>Definition: {{ term.definition }}</p>
+    <div class="pt-[5rem] bg-[#F6F7FB] py-10 flex flex-wrap flex-row justify-around">
+        <div class="bg-white p-10 rounded-2xl text-black h-[30%] w-[95%] mb-5" v-for="term of terms" :term="term" :key="term.id">
+            <h4>Term: {{ term.term }}</h4>
+            <br>
+            <p>Definition: {{ term.definition }}</p>
+        </div>
     </div>
 </template>
 

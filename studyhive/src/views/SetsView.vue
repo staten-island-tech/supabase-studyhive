@@ -1,7 +1,5 @@
 <template>
-  <div class="pt-[10rem] bg-[#F6F7FB] py-10 flex flex-row justify-around">
-    <RouterView />
-  </div>
+  <RouterView />
 </template>
 
 <script setup lang="ts">
