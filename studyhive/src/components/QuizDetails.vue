@@ -12,10 +12,9 @@
         </div>
     </div>
     <div class="pt-[5rem] bg-[#F6F7FB] py-10 flex flex-wrap flex-row justify-around">
-        <div class="bg-white p-10 rounded-2xl text-black h-[30%] w-[95%] mb-5" v-for="term of terms" :term="term" :key="term.id">
-            <h4>Term: {{ term.term }}</h4>
-            <br>
-            <p>Definition: {{ term.definition }}</p>
+        <div class="bg-white p-10 rounded-2xl text-black h-[30%] w-[70%] mb-5 flex flex-row justify-evenly" v-for="term of terms" :term="term" :key="term.id">
+            <h4 class="w-1/5">{{ term.term }}</h4>
+            <p class="w-3/4">{{ term.definition }}</p>
         </div>
     </div>
 </template>

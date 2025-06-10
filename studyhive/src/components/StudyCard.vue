@@ -44,13 +44,8 @@
 <script setup lang="ts">
 import { gsap } from 'gsap'
 
-interface Props {
-  title: string
-  num: number
-  user: string
-}
 
-defineProps<Props>()
+
 
 const card = ref<HTMLElement | null>(null)
 const gradient = ref<HTMLElement | null>(null)
