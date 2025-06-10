@@ -21,7 +21,6 @@
       </div>
       <img src="/img/image.png" alt="" class="w-[45%] aspect-[8/9] object-cover rounded-[3rem]" />
     </div>
-    <ImageText imageSrc="/img/image.png" info="yah be agsudghuasidhuia fghdkgsdfagafsduigsdfuig" />
   </div>
 </template>
 
