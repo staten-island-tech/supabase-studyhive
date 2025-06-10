@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-[10rem] bg-[#F6F7FB] py-10 flex flex-row justify-around">
+  <div class="pt-[10rem] bg-[#F6F7FB] py-10 flex flex-row justify-around min-h-screen">
     <StudyCard :num=12 title="very cool thing yk" user="josephine_liu43"/>
   </div>
 </template>

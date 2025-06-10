@@ -99,7 +99,7 @@ const loggedin = ref(false);
   <RouterView />
 
   <footer
-    class="footer footer-horizontal footer-center bg-white shadow-2xl mt-10 text-base-content rounded p-10"
+    class="footer footer-horizontal footer-center bg-white shadow-2xl  text-base-content rounded p-10"
   >
     <nav class="grid grid-flow-col gap-4">
       <a class="link link-hover">About us</a>
