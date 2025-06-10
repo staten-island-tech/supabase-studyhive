@@ -76,10 +76,20 @@
     console.log(data);
     await createTerms(data.id);
     if (redirect) {
-      //add redirected view -> play quiz;
+      title.value = '';
+      cardsData.value = {};
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+      router.push(`/Play/${data.id}`);
     } else {
       title.value = '';
       cardsData.value = {};
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
       router.push('/Home');
     }
     return 'created';

@@ -4,7 +4,6 @@
         <h3 v-if="n !== 0">FINISHED</h3>
         <br>
         <button v-if="n === 0" @click="started = true" class="btn">START</button>
-        <br>
         <p v-if="n !== 0">UNMEMORIZED TERM(S): {{ unmemTerms.length }}</p>
         <br>
         <button v-if="n !== 0" @click="goBack" class="btn">GO BACK TO DETAILS</button>
