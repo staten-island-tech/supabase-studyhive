@@ -26,23 +26,22 @@
     ></div>
 
     <!-- Card content layer -->
-    <div class="relative z-10 bg-base-100 rounded-3xl p-5">
-      <h2 class="card-title font-bold">{{ title }}</h2>
+    <div class="relative z-10 bg-base-100 rounded-3xl p-5" @click="goToSet(studySet.id)">
+      <h2 class="card-title font-bold">{{ studySet.quiz_title }}</h2>
       <div class="flex mb-10">
         <p class="terms bg-amber-300 px-3 py-1 rounded-2xl font-semibold text-[0.9rem]">
-          {{ num }} terms
+          {{ studySet.terms_number }} terms
         </p>
       </div>
       <div class="user flex gap-2 items-center">
         <img src="/img/image.png" alt="" class="w-[7%] rounded-3xl" />
-        <p class="user">{{ user }}</p>
+        <p class="user">{{ studySet.creator }}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import { gsap } from 'gsap'
 
 interface Props {
@@ -85,6 +84,38 @@ const stopGradientLoop = () => {
     angle.value = 0
   }
 }
+import { onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { supabase } from '@/supabase.ts';
+
+onMounted(async () => {
+  await getPfp();
+})
+
+const props = defineProps({
+  studySet: {
+    type: Object,
+    required: true
+  }
+});
+
+const pfp = ref('');
+
+async function getPfp() {
+  const { data, error } = await supabase.from('profiles').select('avatar_url').eq("username", props.studySet.creator).single();
+  if (error) {
+    console.log (error);
+    return null;
+  }
+  console.log(data);
+  pfp.value = data.avatar_url;
+}
+
+const router = useRouter();
+function goToSet(id: any) {
+    router.push(`/StudySets/details/${id}`);
+}
+
 </script>
 
 <style scoped></style>

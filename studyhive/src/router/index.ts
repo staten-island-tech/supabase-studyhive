@@ -2,6 +2,12 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import SetsView from '@/views/SetsView.vue'
 import CreateView from '@/views/CreateView.vue'
+import { useUserStore } from '@/stores/users.ts'
+import { showSignIn } from '@/var.ts'
+import StudySet from '@/components/StudySet.vue'
+import QuizDetails from '@/components/QuizDetails.vue'
+import PlayView from '@/views/PlayView.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,16 +16,37 @@ const router = createRouter({
       path: '/Home',
       name: 'Home',
       component: HomeView,
+      meta: { requiresAuth: true }
     },
     {
       path: '/StudySets',
-      name: 'Study Sets',
+      name: 'StudySets',
       component: SetsView,
+      children: [
+        {
+          path: 'details/:studySetId',
+          name: 'StudySetDetails',
+          component: QuizDetails,
+          props: true
+        },
+        {
+          path: '',
+          name: 'StudySetsOverview',
+          component: StudySet,
+        }
+      ]
+    },
+    {
+      path: '/Play/:studySetId',
+      name: 'Play',
+      component: PlayView,
+      props: true
     },
     {
       path: '/Create',
-      name: 'Create Sets',
+      name: 'CreateSets',
       component: CreateView,
+      meta: { requiresAuth: true }
     },
     {
       path: '/',
@@ -31,5 +58,16 @@ const router = createRouter({
     },
   ],
 })
+
+router.beforeEach((to, from, next) => {
+  const userStore = useUserStore();
+  if (to.meta.requiresAuth && !userStore.isSignedIn) {
+    showSignIn.value = true;
+    alert('authentication required.')
+    next({ name: 'getStarted' }); // Redirect to login if not authenticated
+  } else {
+    next(); // Proceed to the route
+  }
+});
 
 export default router

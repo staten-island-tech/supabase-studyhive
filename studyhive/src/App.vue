@@ -4,11 +4,11 @@ import { supabase } from '@/supabase.ts';
 import { RouterLink, RouterView, useRouter } from 'vue-router';
 import { ref, onMounted, onUnmounted } from 'vue';
 import SignIn from './components/SignIn.vue';
-const showNav = ref(true)
-let lastScrollY = window.scrollY
-const showShadow = ref(false)
-const mobileMenuOpen = ref(false)
-const showSignIn = ref(false)
+import { showSignIn } from './var.ts';
+const showNav = ref(true);
+let lastScrollY = window.scrollY;
+const showShadow = ref(false);
+const mobileMenuOpen = ref(false);
 const handleScroll = () => {
   const currentScrollY = window.scrollY
   // Show navbar if scrolling up OR if you're near the top
