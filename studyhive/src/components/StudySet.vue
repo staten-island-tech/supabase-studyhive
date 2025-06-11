@@ -1,7 +1,11 @@
 <template>
-  <div class="pt-[10rem] bg-[#F6F7FB] py-10 flex flex-row justify-around min-h-screen">
-    <StudyCard v-for="studySet of studySets" :studySet="studySet" :key="studySet.id" />
+  <div class="bg-[#F6F7FB] pt-[10rem] min-h-screen">
+  <!-- insert search for cards -->
+    <div class=" flex flex-wrap justify-evenly gap-y-7">
+      <StudyCard v-for="studySet of studySets" :studySet="studySet" :key="studySet.id" />
+    </div>
   </div>
+  
 </template>
 
 <script setup lang="ts">
