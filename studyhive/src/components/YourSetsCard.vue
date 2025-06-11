@@ -78,5 +78,4 @@ const stopGradientLoop = () => {
 </script>
 
 <style scoped>
-/* No extra styles needed */
 </style>
