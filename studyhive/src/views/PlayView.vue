@@ -1,5 +1,5 @@
 <template>
-    <div v-if="!started" class="h-[50rem] pt-[10rem] bg-[#F6F7FB] py-10 justify-items-center place-items-center">
+    <div v-if="!started" class="h-[50rem] pt-[10rem] bg-[#F6F7FB] py-10 justify-items-center place-items-center text-black">
         <h3 class="font-bold text-xl" v-if="n === 0">{{ quizInfo.quiz_title }}</h3>
         <h3 v-if="n !== 0">FINISHED</h3>
         <br>
@@ -10,7 +10,7 @@
         <button v-if="n !== 0" @click="retry(true)" class="btn">RETRY W/ ALL TERMS</button>
         <button v-if="n !== 0 && unmemTerms.length !== 0" @click="retry(false)" class="btn">RETRY W/ ONLY UNKNOWN TERMS</button>
     </div>
-    <div v-if="started" class="h-[50rem] pt-[10rem] bg-[#F6F7FB] py-10 flex flex-wrap items-center">
+    <div v-if="started" class="h-[50rem] pt-[10rem] bg-[#F6F7FB] py-10 flex flex-wrap items-center text-black">
         <p></p>
         <div v-if="!reveal" @click="reveal = true" class="card bg-white h-[50%] w-[45%] flex flex-column justify-center items-center ml-auto mr-auto">
             <h3 class="font-bold text-2xl">TERM</h3>

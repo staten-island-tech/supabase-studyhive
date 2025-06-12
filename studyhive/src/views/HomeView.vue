@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-[90rem] bg-[#F6F7FB] gap-9 items-center pt-48 flex flex-col">
+  <div class="w-full h-[90rem] bg-[#F6F7FB] gap-9 items-center pt-48 flex flex-col text-black">
     <div class="w-[60%] aspect-[4/1] p-7 bg-amber-500 rounded-2xl flex flex-row gap-24">
       <div class="flex flex-col ">
         <h1 class=" font-bold text-3xl">WELCOME BACK {{userUpper}}</h1>

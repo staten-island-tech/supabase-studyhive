@@ -4,13 +4,13 @@
       <div class="flex flex-col justify-center mb-4 gap-5">
         <input
           type="text"
-          class="font-medium w-full h-12 pl-4 rounded-[10px] bg-white focus:ring-2 focus:ring-amber-400 focus:outline-none"
+          class="font-medium text-black w-full h-12 pl-4 rounded-[10px] bg-white focus:ring-2 focus:ring-amber-400 focus:outline-none"
           placeholder='Enter a title, like "ELA STUFF"'
           v-model="title"
         />
         <input
           type="text"
-          class="font-medium w-full h-16 pl-4 pb-3 bg-white rounded-[10px] focus:shadow-[0_2px_0_0_rgba(0,0,0,1)] focus:outline-none"
+          class="font-medium text-black w-full h-16 pl-4 pb-3 bg-white rounded-[10px] focus:shadow-[0_2px_0_0_rgba(0,0,0,1)] focus:outline-none"
           placeholder="Add a description..."
           v-model="description"
         />
@@ -18,17 +18,17 @@
       <CreateCard v-for="(card, index) in cards" :num="index + 1" :key="card.id" @updateCard="handleCardData(card.id, $event)" @remove="removeCard(index)" />
       <div
         @click="addAnotherCard"
-        class="w-full rounded-2xl mt-7 bg-white h-30 flex justify-center items-center text-[100%] font-bold underline tracking-widest cursor-pointer decoration-amber-400 underline-offset-6 decoration-4 transition-all hover:decoration-[#3CCFCF] hover:text-[#3CCFCF]"
+        class="w-full rounded-2xl mt-7 bg-white h-30 flex justify-center items-center text-[100%] font-bold underline tracking-widest cursor-pointer decoration-amber-400 underline-offset-6 decoration-4 transition-all text-black hover:decoration-[#3CCFCF] hover:text-[#3CCFCF]"
       >
         ADD CARD
       </div>
       <div class="w-full flex flex-row justify-end gap-3 mt-3">
-        <button @click="createQuiz(false)" class="w-1/9 rounded-[100rem] outline-1 aspect-[3]">
+        <button @click="createQuiz(false)" class="w-1/9 rounded-[100rem] outline-1 aspect-[3] text-black">
           Create
         </button>
         <button
           @click="createQuiz(true)"
-          class="w-1/5 font-bold rounded-[100rem] bg-amber-400 outline-1 aspect-[3]"
+          class="w-1/5 font-bold text-black rounded-[100rem] bg-amber-400 outline-1 aspect-[3]"
         >
           Create and Practice
         </button>
