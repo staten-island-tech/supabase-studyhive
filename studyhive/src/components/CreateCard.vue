@@ -12,8 +12,8 @@
       ></i>
     </div>
     <div class="line w-full h-[2px] bg-[#F6F7FB]"></div>
-    <div class="flex flex-row justify-between m-12">
-      <div class="flex flex-col w-[48%]">
+    <div class="flex flex-col md:flex-row justify-between m-12">
+      <div class="flex flex-col w-full md:w-[48%]">
         <textarea
           class="bg-transparent focus:outline-none border-b-2 border-b-black w-full resize-none overflow-hidden min-h-[1rem]"
           placeholder="Enter term"
@@ -24,7 +24,7 @@
         ></textarea>
         <h3 class="mt-2 text-gray-400 text-[80%] font-medium">TERM</h3>
       </div>
-      <div class="flex flex-col w-[48%]">
+      <div class="flex flex-col w-full md:w-[48%]">
         <textarea
           class="bg-transparent focus:outline-none border-b-2 border-b-black w-full resize-none overflow-hidden min-h-[1rem]"
           placeholder="Enter definition"

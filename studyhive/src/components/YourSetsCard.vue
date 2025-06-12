@@ -1,7 +1,7 @@
 <template>
   <div
     ref="card"
-    class="relative w-1/3 aspect-square rounded-3xl p-3 hover:scale-105 transition-all duration-300 overflow-visible"
+    class="relative w-full md:w-1/3 aspect-square rounded-3xl p-3 hover:scale-105 transition-all duration-300 overflow-visible"
     @mouseenter="startGradientLoop"
     @mouseleave="stopGradientLoop"
   >
