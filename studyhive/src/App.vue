@@ -150,7 +150,7 @@ const loggedin = ref(false);
     <SignIn v-if="showSignIn" @close="showSignIn = false" />
     <RouterView />
 
-    <footer class="footer footer-horizontal footer-center bg-white shadow-2xl text-base-content rounded p-10 text-black">
+    <footer class="footer footer-horizontal footer-center bg-white shadow-2xl rounded p-10 text-black">
       <nav class="grid grid-flow-col gap-4">
         <a class="link link-hover">About us</a>
         <a class="link link-hover">Contact</a>

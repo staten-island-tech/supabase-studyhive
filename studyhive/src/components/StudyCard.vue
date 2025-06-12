@@ -26,7 +26,7 @@
     ></div>
 
     <!-- Card content layer -->
-    <div class="relative z-10 bg-base-100 rounded-3xl p-5 bg-white" @click="goToSet(studySet.id)">
+    <div class="relative z-10 rounded-3xl p-5 bg-white" @click="goToSet(studySet.id)">
       <h2 class="card-title font-bold">{{ studySet.quiz_title }}</h2>
       <div class="flex mb-10">
         <p class="terms bg-amber-300 px-3 py-1 rounded-2xl font-semibold text-[0.9rem]">

@@ -11,7 +11,7 @@ interface UserInfo {
 
 export const useUserStore = defineStore('user', {
     state: () => ({
-        isSignedIn: true, //change this to false later
+        isSignedIn: false,
         userInfo: null as UserInfo | null
     }),
     actions: {
