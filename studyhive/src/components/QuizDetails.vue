@@ -3,14 +3,14 @@
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
         />
-    <div class="flex flex-col justify-center items-center w-full bg-[#FFFFF] pt-[8rem]">
+    <div class="flex flex-col justify-center items-center w-full bg-[#FFFFF] pt-[8rem] pb-[4rem]">
         <h1 class="text-[2.5rem] w-[80%] md:w-[60%] font-bold">{{ quizInfo.quiz_title }}</h1>
         <h4 class="text-[1.5rem] w-[80%] md:w-[60%] font-bold">{{ quizInfo.description }}</h4>
         <h3 class="text-[1rem] w-[80%] md:w-[60%]">Created by: {{ quizInfo.creator }}</h3>
         <div class="bg-white flex justify-evenly p-4 rounded-2xl my-4 w-[80%] md:w-[60%] text-black">
-            <button class="btn w-[45%] rounded-2xl h-16 border-0 bg-[#F6F7FB] " @click="goToPlay"><i class="fa-solid fa-copy"></i>Flashcards</button>
-            <button class="btn w-[45%] rounded-2xl h-16 border-0 bg-[#F6F7FB] " v-if="!favorited" @click="favoritingStudySet(true)"><i class="fa-regular fa-star"></i>Favorite</button>
-            <button class="btn w-[45%] rounded-2xl h-16 border-0 bg-[#F6F7FB] " v-if="favorited" @click="favoritingStudySet(false)"><i class="fa-solid fa-star"></i>Unfavorite</button>
+            <button class="btn w-[45%] rounded-2xl h-16 border-0 bg-[#F6F7FB] text-black" @click="goToPlay"><i class="fa-solid fa-copy"></i>Flashcards</button>
+            <button class="btn w-[45%] rounded-2xl h-16 border-0 bg-[#F6F7FB] text-black" v-if="!favorited" @click="favoritingStudySet(true)"><i class="fa-regular fa-star"></i>Favorite</button>
+            <button class="btn w-[45%] rounded-2xl h-16 border-0 bg-[#F6F7FB] text-black" v-if="favorited" @click="favoritingStudySet(false)"><i class="fa-solid fa-star"></i>Unfavorite</button>
         </div>
         <h3 class="w-[80%] md:w-[60%] px-2 font-bold text-2xl">Terms in this set ({{ quizInfo.terms_number }}) </h3>
         <div class=" bg-[#F6F7FB] w-[80%] md:w-[60%] rounded-2xl pt-5 flex flex-wrap flex-row justify-around">
