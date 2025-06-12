@@ -1,9 +1,7 @@
 <template>
     <div v-if="!started" class="h-[50rem] pt-[10rem] bg-[#F6F7FB] py-10 justify-items-center place-items-center text-black">
-        <h3 class="font-bold text-xl" v-if="n === 0">{{ quizInfo.quiz_title }}</h3>
         <h3 v-if="n !== 0">FINISHED</h3>
         <br>
-        <button v-if="n === 0" @click="started = true" class="btn">START</button>
         <p v-if="n !== 0">UNMEMORIZED TERM(S): {{ unmemTerms.length }}</p>
         <br>
         <button v-if="n !== 0" @click="goBack" class="btn">GO BACK TO DETAILS</button>
@@ -74,7 +72,7 @@ function goToNext(memorized:boolean) {
     reveal.value = false;
 }
 
-const started = ref(false);
+const started = ref(true);
 
 const quizInfo = ref([]);
 async function fetchQuiz() {
@@ -111,7 +109,7 @@ watch(
   async () => {
     await fetchQuiz();
     n.value = 0;
-    started.value = false;
+    started.value = true;
   },
   { immediate: true } // run on initial mount
 )
