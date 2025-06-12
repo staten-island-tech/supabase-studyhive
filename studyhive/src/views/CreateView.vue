@@ -1,6 +1,6 @@
 <template>
   <div class="pt-40 w-full h-fit pb-[2rem] bg-[#F6F7FB] flex justify-center">
-    <div class="w-3/5">
+    <div class="w-4/5 md:w-3/5">
       <div class="flex flex-col justify-center mb-4 gap-5">
         <input
           type="text"
@@ -22,13 +22,13 @@
       >
         ADD CARD
       </div>
-      <div class="w-full flex flex-row justify-end gap-3 mt-3">
-        <button @click="createQuiz(false)" class="w-1/9 rounded-[100rem] outline-1 aspect-[3] text-black">
+      <div class="w-full flex flex-col md:flex-row justify-end gap-3 mt-3">
+        <button @click="createQuiz(false)" class="w-full md:w-1/9 rounded-[100rem] text-[1.2rem] font-bold text-gray-500 outline-gray-300 outline-1 h-20 md:aspect-[3]">
           Create
         </button>
         <button
           @click="createQuiz(true)"
-          class="w-1/5 font-bold text-black rounded-[100rem] bg-amber-400 outline-1 aspect-[3]"
+          class=" w-full md:w-1/5 font-bold rounded-[100rem] bg-amber-400 text-[1.2rem] text-white outline-amber-400 outline-1 h-20 md:aspect-[3]"
         >
           Create and Practice
         </button>

@@ -1,22 +1,31 @@
 <template>
-    <div class="pt-[10rem] bg-[#F6F7FB] py-10 flex flex-row justify-around">
-        <div class="bg-white p-10 rounded-2xl h-[90%] w-[95%] text-black">
-            <h3>Title: {{ quizInfo.quiz_title }}</h3>
-            <h4>Description: {{ quizInfo.description }}</h4>
-            <h3>Creator: {{ quizInfo.creator }}</h3>
-            <br>
-            <p>Terms: {{ quizInfo.terms_number }}</p>
-            <button class="btn mr-5 mt-5" @click="goToPlay">PLAY</button>
-            <button class="btn mt-5" v-if="!favorited" @click="favoritingStudySet(true)">FAVORITE</button>
-            <button class="btn mt-5" v-if="favorited" @click="favoritingStudySet(false)">UNFAVORITE</button>
+     <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        />
+    <div class="flex flex-col justify-center items-center w-full bg-[#FFFFF] pt-[8rem]">
+        <h1 class="text-[2.5rem] w-[80%] md:w-[60%] font-bold">{{ quizInfo.quiz_title }}</h1>
+        <h4 class="text-[1.5rem] w-[80%] md:w-[60%] font-bold">{{ quizInfo.description }}</h4>
+        <h3 class="text-[1rem] w-[80%] md:w-[60%]">Created by: {{ quizInfo.creator }}</h3>
+        <div class="bg-white flex justify-evenly p-4 rounded-2xl my-4 w-[80%] md:w-[60%] text-black">
+            <button class="btn w-[45%] rounded-2xl h-16 border-0 bg-[#F6F7FB] " @click="goToPlay"><i class="fa-solid fa-copy"></i>Flashcards</button>
+            <button class="btn w-[45%] rounded-2xl h-16 border-0 bg-[#F6F7FB] " v-if="!favorited" @click="favoritingStudySet(true)"><i class="fa-regular fa-star"></i>Favorite</button>
+            <button class="btn w-[45%] rounded-2xl h-16 border-0 bg-[#F6F7FB] " v-if="favorited" @click="favoritingStudySet(false)"><i class="fa-solid fa-star"></i>Unfavorite</button>
+        </div>
+        <h3 class="w-[80%] md:w-[60%] px-2 font-bold text-2xl">Terms in this set ({{ quizInfo.terms_number }}) </h3>
+        <div class=" bg-[#F6F7FB] w-[80%] md:w-[60%] rounded-2xl pt-5 flex flex-wrap flex-row justify-around">
+            <div 
+            class="bg-white py-7 px-5 rounded-[5px] text-black w-[95%] mb-5 flex flex-col md:flex-row justify-evenly"
+            v-for="term of terms" 
+            :term="term" 
+            :key="term.id"
+            >
+                <h4 class="w-full md:w-1/5">{{ term.term }}</h4>
+                <p class="w-full md:w-3/4">{{ term.definition }}</p>
+            </div>
         </div>
     </div>
-    <div class="pt-[5rem] bg-[#F6F7FB] py-10 flex flex-wrap flex-row justify-around">
-        <div class="bg-white p-10 rounded-2xl text-black h-[30%] w-[70%] mb-5 flex flex-row justify-evenly" v-for="term of terms" :term="term" :key="term.id">
-            <h4 class="w-1/5">{{ term.term }}</h4>
-            <p class="w-3/4">{{ term.definition }}</p>
-        </div>
-    </div>
+
 </template>
 
 <script setup lang="ts">

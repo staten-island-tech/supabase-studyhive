@@ -1,33 +1,38 @@
 <template>
-    <div v-if="!started" class="h-[50rem] pt-[10rem] bg-[#F6F7FB] py-10 justify-items-center place-items-center text-black">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <div v-if="!started" class="h-[50rem] pt-[10rem] bg-[#F6F7FB] py-10 justify-items-center place-items-center">
+        <h3 class="font-bold text-xl" v-if="n === 0">{{ quizInfo.quiz_title }}</h3>
+        <br>
         <h3 v-if="n !== 0">FINISHED</h3>
         <br>
         <p v-if="n !== 0">UNMEMORIZED TERM(S): {{ unmemTerms.length }}</p>
         <br>
-        <button v-if="n !== 0" @click="goBack" class="btn">GO BACK TO DETAILS</button>
-        <button v-if="n !== 0" @click="retry(true)" class="btn">RETRY W/ ALL TERMS</button>
-        <button v-if="n !== 0 && unmemTerms.length !== 0" @click="retry(false)" class="btn">RETRY W/ ONLY UNKNOWN TERMS</button>
+        <button v-if="n !== 0" @click="goBack" class="btn w-full md:w-[45%] h-16 rounded-4xl bg-transparent border-gray-300">GO BACK TO DETAILS</button>
+        <button v-if="n !== 0" @click="retry(true)" class="btn w-full md:w-[45%] h-16 rounded-4xl bg-transparent border-gray-300">RETRY W/ ALL TERMS</button>
+        <button v-if="n !== 0 && unmemTerms.length !== 0" @click="retry(false)" class="btn w-full md:w-[45%] h-16 rounded-4xl bg-transparent border-gray-300">RETRY W/ ONLY UNKNOWN TERMS</button>
     </div>
-    <div v-if="started" class="h-[50rem] pt-[10rem] bg-[#F6F7FB] py-10 flex flex-wrap items-center text-black">
+    <div v-if="started" class="h-[50rem] pt-[10rem] bg-[#F6F7FB] justify-center py-10 flex flex-col items-center">
         <p></p>
-        <div v-if="!reveal" @click="reveal = true" class="card bg-white h-[50%] w-[45%] flex flex-column justify-center items-center ml-auto mr-auto">
+        <div v-if="!reveal" @click="reveal = true" class="card bg-white h-[50%] w-[80%] md:w-[45%] flex flex-column justify-center items-center ml-auto mr-auto">
             <h3 class="font-bold text-2xl">TERM</h3>
             <br>
             <p class="text-xl">{{ terms[n].term }}</p>
         </div>
-        <div v-if="reveal" class="card bg-white h-[50%] w-[45%] flex flex-column justify-center items-center ml-auto mr-auto">
+        <div v-if="reveal" class="card bg-white h-[50%] w-[80%] md:w-[45%] flex flex-column justify-center items-center ml-auto mr-auto">
             <h3 class="font-bold text-2xl">DEFINITION</h3>
             <br>
-            <p class="text-xl">{{ terms[n].definition }}</p>
-            <br>
-            <div v-if="n<(terms.length-1)" class="flex flex-wrap items-center flex-row">
-                <button @click="goToNext(true)" class="btn" >MEMORIZED</button>
-                <button @click="goToNext(false)" class="btn" >NEED MORE TIME</button>
-            </div>
-            <div @click="started = false" v-if="n===(terms.length-1)" class="flex flex-wrap items-center flex-row">
-                <button @click="goToNext(true)" class="btn" >MEMORIZED</button>
-                <button @click="goToNext(false)" class="btn" >NEED MORE TIME</button>
-            </div>
+            <p class="text-xl w-[90%]">{{ terms[n].definition }}</p>  
+        </div>
+        <div v-if="n<(terms.length-1)" class="flex w-[80%] md:w-[45%] justify-evenly items-center flex-col gap-6 md:flex-row mt-5">
+            <button @click="goToNext(true)" class="btn w-full md:w-[45%] h-16 rounded-4xl bg-transparent border-gray-300" ><i class="fa-solid fa-chevron-right"></i>MEMORIZED</button>
+            <button @click="goToNext(false)" class="btn w-full md:w-[45%] h-16 rounded-4xl bg-transparent border-gray-300" ><i class="fa-solid fa-arrow-rotate-right"></i>NEED MORE TIME</button>
+        </div>
+        <div @click="started = false" v-if="n===(terms.length-1)" class=" w-[80%] md:w-[45%]flex flex-wrap items-center gap-6 flex-col md:flex-row mt-5">
+            <button @click="goToNext(true)" class="btn w-full md:w-[45%] h-16 rounded-4xl bg-transparent border-gray-300" > <i class="fa-solid fa-chevron-right"></i>MEMORIZED</button>
+            <button @click="goToNext(false)" class="btn w-full md:w-[45%] h-16 rounded-4xl bg-transparent border-gray-300" > <i class="fa-solid fa-arrow-rotate-right"></i>NEED MORE TIME</button>
         </div>
     </div>
 </template>

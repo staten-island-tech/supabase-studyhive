@@ -10,11 +10,15 @@ const showNav = ref(true);
 let lastScrollY = window.scrollY;
 const showShadow = ref(false);
 const mobileMenuOpen = ref(false);
+const showScroll = ref(false);
 
 const handleScroll = () => {
   const currentScrollY = window.scrollY;
+
   showNav.value = currentScrollY < lastScrollY || currentScrollY < 10;
   showShadow.value = currentScrollY > 10;
+  showScroll.value = currentScrollY > 300; // 👈 show button after 300px scroll
+
   lastScrollY = currentScrollY;
 };
 
@@ -132,8 +136,15 @@ const loggedin = ref(false);
     </header>
 
     <div class="fixed z-100 bottom-4 right-10">
-      <button @click="scrollUp" class="w-24 h-24 bg-amber-500 rounded-[30rem]">🡡</button>
-      <h3>scroll up</h3>
+      <button
+        v-show="showScroll"
+        @click="scrollUp"
+        class="fixed z-50 bottom-8 right-8 w-16 h-16 bg-amber-500 text-white text-3xl rounded-full shadow-lg hover:bg-amber-400 active:scale-95 transition-all duration-200"
+        aria-label="Scroll to top"
+      >
+        🡡
+      </button>
+
     </div>
 
     <SignIn v-if="showSignIn" @close="showSignIn = false" />
