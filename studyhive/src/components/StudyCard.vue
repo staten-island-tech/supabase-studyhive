@@ -99,10 +99,9 @@ const pfp = ref('');
 async function getPfp() {
   const { data, error } = await supabase.from('profiles').select('avatar_url').eq("username", props.studySet.creator).single();
   if (error) {
-    console.log (error);
+    alert(error);
     return null;
   }
-  console.log(data);
   pfp.value = data.avatar_url;
 }
 

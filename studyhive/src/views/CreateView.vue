@@ -70,6 +70,14 @@
   const title = ref('');
   const description = ref('');
 
+  async function deleteQuiz(quizId: string) {
+    const { data, error } = await supabase.from('quizzes').delete().eq('id', quizId);
+    if (error) {
+      alert(error);
+      return null;
+    }
+  }
+
   const userStore = useUserStore();
   async function createQuiz(redirect:boolean) {
     if (title.value === '') {
@@ -82,8 +90,11 @@
       alert(error);
       return null;
     }
-    console.log(data);
     await createTerms(data.id);
+    if (createdTerms.value === false) {
+      await deleteQuiz(data.id);
+      return null;
+    }
     if (redirect) {
       title.value = '';
       cardsData.value = {};
@@ -101,21 +112,25 @@
       });
       router.push('/Home');
     }
-    return 'created';
   }
 
+  const createdTerms = ref(false);
   async function createTerms(quiz_id: string) {
+    createdTerms.value = false;
     for (const card of cards.value) {
       const dataEntry = cardsData.value[card.id];
-      if (!dataEntry) continue;
+      if ((dataEntry.definition.length === 0) || (dataEntry.term.length === 0)) {
+        alert("You didn't fill in all terms + definitions for your study set.");
+        return null;
+      }
 
       const { data, error } = await supabase.from('terms').insert({quiz_id: quiz_id, term: dataEntry.term, definition: dataEntry.definition}).select();
       if (error) {
         alert(error);
         return null;
       }
-      console.log(data);
     }
+    createdTerms.value = true;
     return 'terms saved completely';
   }
 </script>

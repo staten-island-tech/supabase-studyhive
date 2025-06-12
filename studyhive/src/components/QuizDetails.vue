@@ -57,14 +57,14 @@ async function favoritingStudySet(action: boolean) {
     if (action) {
         const { data, error } = await supabase.from('favorited').insert({quiz_id: props.studySetId, username: userStore.userInfo?.username}).select();
 				if (error) {
-					console.log(error);
+					alert(error);
 					return null;
 				}
                 favorited.value = true;
     } else if (!action) {
 				const { data, error } = await supabase.from('favorited').delete().eq('quiz_id', props.studySetId).eq('username', userStore.userInfo?.username);
 				if (error) {
-					console.log(error);
+					alert(error);
 					return null;
 				}
                 favorited.value = false;
@@ -77,7 +77,7 @@ async function checkFavorited() {
     }
     const { data, error } = await supabase.from('favorited').select('username').eq('quiz_id', props.studySetId);
     if (error) {
-        console.log(error);
+        alert(error);
         return null;
     }
     for (const user of data) {
@@ -92,7 +92,7 @@ const quizInfo = ref([]);
 async function fetchQuiz() {
     const { data, error } = await supabase.from('quizzes').select('*').eq('id', props.studySetId).single();
     if (error) {
-        console.log(error);
+        alert(error);
         return null;
     }
     quizInfo.value = data;
@@ -103,7 +103,7 @@ const terms = ref([]);
 async function fetchTerms() {
     const { data, error } = await supabase.from('terms').select('*').eq('quiz_id', props.studySetId);
     if (error) {
-        console.log(error);
+        alert(error);
         return null;
     }
     terms.value = data;

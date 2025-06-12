@@ -83,7 +83,7 @@ const quizInfo = ref([]);
 async function fetchQuiz() {
     const { data, error } = await supabase.from('quizzes').select('*').eq('id', props.studySetId).single();
     if (error) {
-        console.log(error);
+        alert(error);
         return null;
     }
     quizInfo.value = data;
@@ -95,7 +95,7 @@ const terms = ref([]);
 async function fetchTerms() {
     const { data, error } = await supabase.from('terms').select('*').eq('quiz_id', props.studySetId);
     if (error) {
-        console.log(error);
+        alert(error);
         return null;
     }
     terms.value = data;
