@@ -13,7 +13,16 @@ import StudyCard from './StudyCard.vue';
 import { supabase } from '@/supabase.ts';
 import { onBeforeMount, ref } from 'vue';
 
-let studySets = ref([]);
+interface StudySet {
+  id: string;
+  quiz_title: string;
+  description: string;
+  creator: string;
+  terms_number: number;
+  // Add any other fields your 'quizzes' table contains
+}
+
+const studySets = ref<StudySet[]>([]);
 async function fetchData() {
   const { data, error } = await supabase.from('quizzes').select('*');
   if (error) {

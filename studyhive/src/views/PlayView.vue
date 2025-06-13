@@ -8,7 +8,7 @@
     class="min-h-screen bg-[#F6F7FB] py-10 w-full flex flex-col justify-center items-center gap-24"
   >
     <div class="flex justify-evenly flex-col items-center text-center">
-      <h3 class="font-bold text-xl" v-if="n === 0">{{ quizInfo.quiz_title }}</h3>
+      <h3 class="font-bold text-xl" v-if="n === 0">{{ quizInfo?.quiz_title }}</h3>
       <h3 class="font-bold text-4xl text-gray-700" v-if="n !== 0">FINISHED</h3>
       <br />
       <p class="font-bold text-2xl text-gray-700" v-if="n !== 0">UNMEMORIZED TERM(S): {{ unmemTerms.length }}</p>
@@ -111,6 +111,19 @@ const props = defineProps({
   },
 })
 
+interface Term {
+  id: string
+  term: string
+  definition: string
+  quiz_id: string
+}
+
+interface Quiz {
+  id: string
+  quiz_title: string
+  creator: string
+}
+
 const router = useRouter()
 function goBack() {
   router.push(`/StudySets/details/${props.studySetId}`)
@@ -130,7 +143,7 @@ async function retry(all: boolean) {
   }
 }
 
-const unmemTerms = ref([])
+const unmemTerms = ref<Term[]>([])
 function goToNext(memorized: boolean) {
   if (!memorized) {
     unmemTerms.value.push(terms.value[n.value])
@@ -141,7 +154,7 @@ function goToNext(memorized: boolean) {
 
 const started = ref(true)
 
-const quizInfo = ref([])
+const quizInfo = ref<Quiz | null>(null)
 async function fetchQuiz() {
   const { data, error } = await supabase
     .from('quizzes')
@@ -156,7 +169,7 @@ async function fetchQuiz() {
   await fetchTerms()
 }
 
-const terms = ref([])
+const terms = ref<Term[]>([])
 
 async function fetchTerms() {
   const { data, error } = await supabase.from('terms').select('*').eq('quiz_id', props.studySetId)
