@@ -53,6 +53,11 @@ function goToLockedRoute(route: string) {
   }
 }
 
+function signOut() {
+  userStore.signOut();
+  router.push('/');
+}
+
 const loggedin = ref(false);
 </script>
 
@@ -88,7 +93,7 @@ const loggedin = ref(false);
                 SIGN IN
               </li>
               <li
-                @click="userStore.signOut"
+                @click="signOut"
                 v-if="userStore.isSignedIn"
                 class="font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-pink-400 px-4 py-2 rounded cursor-pointer"
               >
