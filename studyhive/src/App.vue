@@ -70,9 +70,8 @@ const loggedin = ref(false);
           <div class="flex justify-between w-[90%] items-center">
             <RouterLink
               to="/"
-              class="items-center left-10 text-2xl font-bold flex gap-x-5 bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-pink-400"
+              class="items-center left-10 text-3xl font-bold flex gap-x-5 bg-clip-text text-transparent bg-gradient-to-r from-amber-500 to-pink-400"
             >
-              <img src="/img/image.png" alt="" class="w-10 cursor-pointer" />
               StudyHive
             </RouterLink>
 
