@@ -369,7 +369,7 @@ async function signIn() {
     alert("You didn't fill in all the inputs") //add more to it
     return null
   }
-  userStore.signIn(email.value, password.value);
+  await userStore.signIn(email.value, password.value);
   if (userStore.isSignedIn === true){
     close();
     email.value = '';
@@ -405,7 +405,7 @@ async function signup() {
     alert('Choose a different username - this one is already in use.') //add more to it
     return null
   }
-  userStore.signUp(email.value, password.value, username.value, fullName, birthday.value);
+  await userStore.signUp(email.value, password.value, username.value, fullName, birthday.value);
   if (userStore.isSignedIn === true) {
     email.value = '';
     password.value = '';
