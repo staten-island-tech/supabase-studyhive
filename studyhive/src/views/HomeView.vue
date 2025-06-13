@@ -58,7 +58,6 @@ async function fetchFav() {
       alert(error);
       return null;
     }
-    console.log(data);
     favStudySets.value.push(data);
   }
 }

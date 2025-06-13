@@ -17,7 +17,7 @@ let studySets = ref([]);
 async function fetchData() {
   const { data, error } = await supabase.from('quizzes').select('*');
   if (error) {
-    console.log(error);
+    alert(error);
     return null;
   }
   studySets.value = data;
