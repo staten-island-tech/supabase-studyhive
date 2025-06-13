@@ -5,38 +5,43 @@
   />
   <div
     v-if="!started"
-    class="h-[50rem] pt-[10rem] bg-[#F6F7FB] py-10 justify-items-center place-items-center"
+    class="min-h-screen bg-[#F6F7FB] py-10 w-full flex flex-col justify-center items-center gap-24"
   >
-    <h3 class="font-bold text-xl" v-if="n === 0">{{ quizInfo.quiz_title }}</h3>
-    <h3 v-if="n !== 0">FINISHED</h3>
-    <br />
-    <button v-if="n === 0" @click="started = true" class="btn rounded-2xl h-16 border-0 bg-white">
-      START
-    </button>
-    <p v-if="n !== 0">UNMEMORIZED TERM(S): {{ unmemTerms.length }}</p>
-    <br />
-    <button
-      v-if="n !== 0"
-      @click="goBack"
-      class="btn w-full md:w-[45%] h-16 rounded-4xl bg-transparent border-gray-300"
-    >
-      GO BACK TO DETAILS
-    </button>
-    <button
-      v-if="n !== 0"
-      @click="retry(true)"
-      class="btn w-full md:w-[45%] h-16 rounded-4xl bg-transparent border-gray-300"
-    >
-      RETRY W/ ALL TERMS
-    </button>
-    <button
-      v-if="n !== 0 && unmemTerms.length !== 0"
-      @click="retry(false)"
-      class="btn w-full md:w-[45%] h-16 rounded-4xl bg-transparent border-gray-300"
-    >
-      RETRY W/ ONLY UNKNOWN TERMS
-    </button>
+    <div class="flex justify-evenly flex-col items-center text-center">
+      <h3 class="font-bold text-xl" v-if="n === 0">{{ quizInfo.quiz_title }}</h3>
+      <h3 class="font-bold text-4xl text-gray-700" v-if="n !== 0">FINISHED</h3>
+      <br />
+      <button v-if="n === 0" @click="started = true" class="btn rounded-2xl h-16 border-0 bg-white">
+        START
+      </button>
+      <p class="font-bold text-2xl text-gray-700" v-if="n !== 0">UNMEMORIZED TERM(S): {{ unmemTerms.length }}</p>
+    </div>
+
+    <div class="flex flex-wrap md:flex-nowrap justify-center gap-4 w-4/5 md:w-1/2">
+      <button
+        v-if="n !== 0"
+        @click="goBack"
+        class="btn w-full md:w-[45%] h-16 rounded-4xl bg-transparent border-gray-300"
+      >
+        GO BACK TO DETAILS
+      </button>
+      <button
+        v-if="n !== 0"
+        @click="retry(true)"
+        class="btn w-full md:w-[45%] h-16 rounded-4xl bg-transparent border-gray-300"
+      >
+        RETRY W/ ALL TERMS
+      </button>
+      <button
+        v-if="n !== 0 && unmemTerms.length !== 0"
+        @click="retry(false)"
+        class="btn w-full md:w-[45%] h-16 rounded-4xl bg-transparent border-gray-300"
+      >
+        RETRY W/ ONLY UNKNOWN TERMS
+      </button>
+    </div>
   </div>
+
   <div
     v-if="started"
     class="h-[50rem] pt-[10rem] bg-[#F6F7FB] justify-center py-10 flex flex-col items-center"

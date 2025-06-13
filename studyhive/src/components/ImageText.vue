@@ -1,9 +1,9 @@
 <template>
-  <div class="flex flex-row w-3/4 h-fit mt-10">
+  <div class="flex flex-col md:flex-row md:justify-end w-3/4 h-fit mt-30 items-center mx-auto">
     <img :src="imageSrc" alt="" class="image w-[45%] aspect-[8/9] object-cover rounded-[3rem]" />
     <div class="flex flex-col w-3/5 justify-center items-center">
       <h1 class="text-[300%] font-bold text-black">Flashcards</h1>
-      <p class="text-black">{{ info }}</p>
+      <p class="text-black w-full md:w-2/3 text-center ">{{ info }}</p>
     </div>
   </div>
 </template>
